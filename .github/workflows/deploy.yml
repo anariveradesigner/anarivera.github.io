@@ -1,0 +1,25 @@
+name: Deploy Droplet Site
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Actualizar archivos en el Droplet
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.DROPLET_IP }}
+        username: ${{ secrets.DROPLET_USER }}
+        key: ${{ secrets.DROPLET_SSH_KEY }}
+        script: |
+          # 1. Entrar a la carpeta pública donde están tus archivos HTML
+          cd /var/www/anarivera.github.io
+          
+          # 2. Forzar la descarga de los últimos cambios
+          git fetch --all
+          git reset --hard origin/main
+          git pull origin main
