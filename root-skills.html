@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Rivera — Root Skills</title>
+<link rel="icon" type="image/png" href="static/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@400;500;600;700;900&family=Poppins:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --mauve:#99999962;
+  --mauve-light:#d8d8d8b0;
+  --mauve-dim:rgba(63, 57, 60, 0.356);
+  --dark:#161616;
+  --dark2:#171417;
+  --cream:#F5ECEF;
+  --white:#ffffff;
+  --gray:#b4b3b62a;
+  --line:rgba(206, 206, 206, 0.274);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{
+  font-family:'Inter',sans-serif;
+  font-weight:300;
+  position:relative;
+  background:var(--dark);
+  color:var(--white);
+  min-height:100%;
+}
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:1;opacity:0.6;
+}
+
+/* ---------- TOP BAR ---------- */
+.topbar{
+  position:sticky;top:0;left:0;right:0;height:52px;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px;
+  background:rgba(77, 77, 77, 0.39);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+  color:rgba(255,255,255,0.85);text-decoration:none;
+}
+.back-link:hover{color:#adadadbd;}
+.topbar-title{
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+  color:rgba(226, 226, 226, 0.4);
+}
+
+/* ---------- LAYOUT ---------- */
+.case-wrap{
+  position:relative;z-index:2;
+  max-width:1180px;margin:0 auto;
+  padding:64px 26px 120px;
+  display:grid;
+  grid-template-columns:200px minmax(0,700px);
+  gap:70px;
+  justify-content:center;
+}
+
+/* ---------- TOC SIDEBAR ---------- */
+.toc{
+  position:sticky;top:90px;align-self:start;
+  display:flex;flex-direction:column;gap:2px;
+}
+.toc-label{
+  font-family:'Poppins',sans-serif;font-size:11px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);
+  margin-bottom:10px;
+}
+.toc-item{
+  font-size:13px;color:rgba(255, 255, 255, 0.644);text-decoration:none;
+  padding:6px 10px;border-radius:7px;border-left:2px solid transparent;
+  transition:color 0.15s, background 0.15s;
+}
+.toc-item:hover{color:rgba(255, 255, 255, 0.705);background:rgba(255,255,255,0.04);}
+.toc-item.active{
+  color:var(--white);
+  font-weight:500;
+  background:rgba(128, 177, 50, 0.226);
+  border-left:2px solid rgba(128, 177, 50, 0.671);
+}
+/* ---------- HEADER ---------- */
+.case-header{margin-bottom:36px;}
+.tags-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px;}
+.tag-pill-1{
+  font-size:12px;font-weight:400;letter-spacing:0.03em;
+  background:#60d1da4d;color:#6bdfe7;text-transform:uppercase;padding:8px 16px;border-radius:6px;
+}
+
+.tag-pill-2{
+  font-size:12px;font-weight:400;letter-spacing:0.03em;
+  background:#b3420e62;color:#f38d5e;text-transform:uppercase;padding:8px 16px;border-radius:6px;
+}
+
+.tag-pill-3{
+  font-size:12px;font-weight:400;letter-spacing:0.03em;
+  background:#9d35a74d;color:#d37adb;text-transform:uppercase;padding:8px 16px;border-radius:6px;
+}
+
+.case-title{
+  font-family:'League Spartan',sans-serif;font-weight:700;
+  font-size:clamp(30px,4vw,44px);line-height:1.08;
+  margin-bottom:20px;
+}
+
+.case-title-row{
+  display:flex;align-items:center;gap:4px;
+}
+.case-logo{
+  width:44px;height:44px;object-fit:contain;flex-shrink:0;
+  transform: translateY(-16px); /* ajusta el número hasta que quede a nivel */
+}
+
+.case-intro{
+  font-size:16px;line-height:1.75;font-weight:300;
+  color:rgba(255,255,255,0.7);max-width:60ch;
+}
+
+/* ---------- HERO MEDIA ---------- */
+.hero-media{
+  margin:36px 0 28px;
+  background:#1c1a1f;border:1px solid var(--line);border-radius:12px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,0.4);
+}
+.hero-media .titlebar{
+  height:34px;display:flex;align-items:center;gap:8px;padding:0 12px;
+  background:linear-gradient(180deg,#221f24,#1c191d);
+  border-bottom:1px solid var(--line);
+}
+.hero-media .traffic{display:flex;gap:7px;}
+.hero-media .dot{width:11px;height:11px;border-radius:50%;}
+.hero-media .dot.red{background:#FF5F57;}
+.hero-media .dot.yellow{background:#FEBC2E;}
+.hero-media .dot.green{background:#28C840;}
+.hero-media-body{
+  aspect-ratio:16/10;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255, 255, 255, 0.26);font-size:13px;
+  background:linear-gradient(155deg, rgba(169, 170, 170, 0.514), rgba(77, 74, 75, 0.03));
+}
+.hero-media-body img,.hero-media-body video{width:100%;height:100%;object-fit:cover;display:block;}
+
+/* ---------- QUICK FACTS ---------- */
+.facts-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:1px;
+  background:#d8d8d823;border:1px solid #8a8a8ab7;border-radius:12px;overflow:hidden;
+  margin-bottom:44px;
+}
+.fact{background:#d8d8d828;padding:16px 18px;}
+.fact-label{
+  font-family:'Poppins',sans-serif;font-size:10.5px;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;color:rgba(255, 255, 255, 0.664);
+  margin-bottom:6px;
+}
+.fact-value{font-size:13.5px;font-weight:500;color:rgba(255,255,255,0.9);}
+
+/* ---------- APPROACH ---------- */
+.approach-image {
+  display: block;
+  width: 100%;
+  max-width: 900px;
+  margin: 2rem auto 0.2rem;  /* top | left-right (auto centra) | bottom */
+  border-radius: 16px;
+}
+
+.approach-figure {
+  margin: 0;
+  text-align: center;
+}
+
+.approach-figure figcaption {
+  margin-top: 0.2rem;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+/* ---------- BUILT LIST ---------- */
+.built-list{list-style:none;margin-bottom:60px;}
+.built-item{
+  display:flex;gap:16px;padding:16px 0;border-top:1px solid var(--line);
+  font-size:14.5px;line-height:1.6;color:rgba(255,255,255,0.75);
+}
+.built-item:last-child{border-bottom:1px solid var(--line);}
+.built-num{
+  font-family:'League Spartan',sans-serif;font-weight:700;font-size:13px;
+  color:#ffffff;flex-shrink:0;width:24px;
+}
+
+/* ---------- SECTIONS ---------- */
+.case-section{padding:64px 0;border-top:1px solid var(--line);}
+.case-section:first-of-type{border-top:none;padding-top:0;}
+.section-eyebrow{
+  font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:0.1em;text-transform:uppercase;color: #ffffff60;
+  margin-bottom:12px;
+}
+.section-title{
+  font-family:'League Spartan',sans-serif;font-weight:700;
+  font-size:clamp(20px,2.8vw,28px);line-height:1.2;margin-bottom:14px;
+}
+.section-subtitle{
+  font-size:15px;font-weight:500;color:rgba(255,255,255,0.85);
+  margin-bottom:14px;
+}
+.section-text{
+  font-size:14.5px;line-height:1.85;font-weight:300;
+  color:rgba(255,255,255,0.7);margin-bottom:16px;max-width:64ch;
+}
+.section-image{
+  margin-top:24px;border-radius:10px;overflow:hidden;
+  border:1px solid var(--line);background:#1c1a1f;
+}
+.section-image img{width:100%;display:block;}
+.section-caption{
+  font-size:12px;color:rgba(255,255,255,0.4);margin-top:10px;font-style: italic;
+}
+
+/* ---------- COMPARISON TABLE ---------- */
+.compare-table{width:100%;border-collapse:collapse;margin-top:40px;font-size:13.5px;}
+.compare-table th{
+  text-align:left;font-family:'Poppins',sans-serif;font-size:10px;font-weight:600;
+  letter-spacing:0.06em;text-transform:uppercase;color:rgba(255,255,255,0.4);
+  padding:10px 14px;border-bottom:1px solid var(--line);
+}
+.compare-table td{
+  padding:12px;border-bottom:1px solid var(--line);
+  color:rgba(255,255,255,0.75);line-height:1.5;vertical-align:top;
+}
+.compare-table tr.chosen td{color:#fff;}
+.verdict-no{color:#e26d6d;font-weight:500;}
+.verdict-yes{color:#64b173;font-weight:700;}
+
+/* ---------- PROCESS STEPS ---------- */
+.process-steps{display:flex;flex-direction:column;gap:0;margin-top:24px;}
+.process-step{
+  display:flex;gap:18px;padding:20px 0;border-top:1px solid var(--line);
+}
+.process-step:first-child{border-top:none;}
+.process-icon{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:#24b1391e;display:flex;align-items:center;justify-content:center;
+  font-family:'League Spartan',sans-serif;font-weight:700;font-size:13px;color:var(--mauve-light);
+}
+.process-name{font-size:14px;font-weight:600;margin-bottom:4px;}
+.process-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,0.65);font-weight:300;}
+.process-content{display:flex;gap:20px;flex:1;align-items:flex-start;}
+.process-text{flex:1.2;}
+.process-image{width:320px;flex-shrink:0;border-radius:8px;display:block;}
+
+/* ---------- IMPACT STATS ---------- */
+.stats-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+  background:#b6b6b628;border:1px solid #a8a8a825;border-radius:12px;overflow:hidden;
+  margin-top:24px;
+}
+.stat-card{background:#77777717;border:1px solid #a8a8a831;padding:24px 22px;}
+.stat-value{
+  font-family:'League Spartan',sans-serif;font-weight:700;font-size:32px;
+  color:#3f9e138c;line-height:1;margin-bottom:8px;
+}
+.stat-label{font-size:12.5px;font-weight:600;color:rgba(255,255,255,0.85);margin-bottom:6px;}
+.stat-desc{font-size:12.5px;line-height:1.6;color:rgba(255,255,255,0.55);font-weight:300;}
+
+
+/* ---------- LEARNINGS ---------- */
+.learning-item{margin-bottom:26px;}
+.learning-item:last-child{margin-bottom:0;}
+.learning-title{font-size:15px;font-weight:600;margin-bottom:6px;}
+.learning-text{font-size:13.5px;line-height:1.8;color:rgba(255,255,255,0.7);font-weight:300;}
+
+/* ---------- NEXT / STATUS CARD ---------- */
+.status-card{
+  margin-top:20px;padding:18px 20px;border-radius:10px;
+  background:rgba(100, 100, 100, 0.274);border:1px solid var(--line);
+  display:flex;align-items:center;gap:12px;
+}
+.status-dot{width:8px;height:8px;border-radius:50%;background:var(--mauve-light);flex-shrink:0;}
+.status-text{font-size:13px;color:rgba(255,255,255,0.7);}
+.status-text strong{color:#fff;}
+
+/* ---------- CTA ---------- */
+.case-cta{
+  text-align:center;padding:40px 0 20px;border-top:1px solid var(--line);
+  margin-top:20px;
+}
+.cta-title{
+  font-family:'League Spartan',sans-serif;font-weight:700;font-size:24px;margin-bottom:18px;
+}
+.send-btn{
+  background:var(--mauve);color:#fff;border:none;padding:11px 26px;border-radius:8px;
+  font-family:'Poppins',sans-serif;font-weight:600;font-size:13.5px;cursor:pointer;
+  text-decoration:none;display:inline-block;background-color:rgba(255,255,255,0.12);
+  border:1px solid var(--line);transition:background 0.2s;
+}
+.send-btn:hover{background:rgba(154, 192, 84, 0.322);}
+
+/* ---------- FOOTER ---------- */
+.case-footer{
+  display:flex;justify-content:space-between;align-items:center;
+  padding-top:36px;margin-top:20px;border-top:1px solid var(--line);
+  font-size:14px;color:rgba(255, 255, 255, 0.555);
+}
+.case-footer a{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Poppins',sans-serif;font-weight:500;}
+.case-footer a:hover{color:var(--mauve-light);}
+
+@media(max-width:900px){
+  .case-wrap{grid-template-columns:1fr;padding:36px 20px 90px;}
+  .toc{position:static;flex-direction:row;flex-wrap:wrap;margin-bottom:30px;}
+  .facts-grid{grid-template-columns:repeat(2,1fr);}
+  .stats-grid{grid-template-columns:1fr;}
+  .process-content{flex-direction:column;}
+  .process-image{width:100%;max-width:280px;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <a href="portfolio.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to projects</a>
+  <div class="topbar-title">Root Skills</div>
+</div>
+
+<div class="case-wrap">
+
+  <!-- TOC -->
+  <nav class="toc" id="toc">
+    <div class="toc-label">Contents</div>
+    <a href="#overview" class="toc-item">Overview</a>
+    <a href="#problem" class="toc-item">Problem</a>
+    <a href="#approach" class="toc-item">Approach</a>
+    <a href="#how-it-works" class="toc-item">How it works</a>
+    <a href="#impact" class="toc-item">Impact</a>
+    <a href="#learnings" class="toc-item">Learnings</a>
+    <a href="#next" class="toc-item">What's Next</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main>
+
+    <!-- HEADER -->
+    <header class="case-header">
+      <div class="tags-row">
+        <span class="tag-pill-1">EdTech</span>
+        <span class="tag-pill-2">Conceptual UX proposal</span>
+        <span class="tag-pill-3">Master's final project</span>
+      </div>
+      <div class="case-title-row">
+        <img src="static/portfolio/root-skills/rootskills-vector.png" alt="Root Skills logo" class="case-logo">
+        <h1 class="case-title">Root Skills</h1>
+      </div>
+      <p class="case-intro">Rethinking onboarding through inclusive design and adaptive experiences.</p>
+    </header>
+
+    <!-- HERO MEDIA -->
+    <div class="hero-media">
+      <div class="titlebar">
+        <div class="traffic"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
+      </div>
+      <div class="hero-media-body">
+        <img src="static/portfolio/root-skills/project-overview-rootskills.png" alt="Root Skills project overview">
+      </div>
+    </div>
+
+    <!-- QUICK FACTS -->
+    <div class="facts-grid">
+      <div class="fact"><div class="fact-label">Type</div><div class="fact-value">Academical project</div></div>
+      <div class="fact"><div class="fact-label">My Role</div><div class="fact-value">UX/UI designer and researcher</div></div>
+      <div class="fact"><div class="fact-label">Timeline</div><div class="fact-value">4 months</div></div>
+      <div class="fact"><div class="fact-label">Output</div><div class="fact-value">Conceptual proposal</div></div>
+    </div>
+
+    <!-- WHAT I BUILT -->
+    <ul class="built-list">
+      <li class="built-item"><span class="built-num">01</span><span>A conceptual adaptive onboarding framework grounded in UX research.</span></li>
+      <li class="built-item"><span class="built-num">02</span><span>A simulated AI assistant designed to personalize onboarding and provide contextual learning support.</span></li>
+      <li class="built-item"><span class="built-num">03</span><span>A high-fidelity EdTech prototype with adaptive user flows and a simplified design system.</span></li>
+      <li class="built-item"><span class="built-num">04</span><span>A research-backed concept refined through two rounds of usability testing.</span></li>
+    </ul>
+
+    <!-- OVERVIEW -->
+    <section class="case-section" id="overview">
+      <div class="section-eyebrow">Overview</div>
+      <h2 class="section-title">Exploring how AI can make onboarding more inclusive</h2>
+      <p class="section-text">This master's thesis explores how personalized onboarding experiences can improve accessibility and reduce cognitive load for first-time users of digital products. 
+        Rather than proposing a one-size-fits-all onboarding flow, the project investigates how onboarding can adapt to different user profiles based on their technological experience and contextual needs. <br><br>
+        The outcome is a conceptual UX proposal for an EdTech application, where AI is integrated as a design mechanism to personalize onboarding pathways while maintaining an inclusive and accessible user experience.</p>
+      <div class="section-image">
+        <img src="static/portfolio/root-skills/project-overview-rootskills.png" alt="[Overview screenshot]">
+      </div>
+      <div class="section-caption">[Caption describing what's shown above]</div>
+    </section>
+
+    <!-- PROBLEM -->
+    <section class="case-section" id="problem">
+      <div class="section-eyebrow">Problem</div>
+      <h2 class="section-title">Because not every user starts from the same place</h2>
+      <p class="section-text">Many digital products still rely on generic onboarding experiences that assume all users have similar levels of digital literacy. As a result, inexperienced users often feel overwhelmed, while more experienced users encounter unnecessary explanations that slow them down.</p>
+      <p class="section-text">This challenge is reinforced by the widespread belief that well-designed products should not require onboarding at all. However, research suggests that effective onboarding increases user retention, improves confidence, and reduces abandonment, highlighting the need for more adaptive approaches that accommodate diverse user needs.</p>     
+      <table class="compare-table">
+        <tr><th>Option</th><th>Why it doesn't work</th><th>Verdict</th></tr>
+        <tr><td>No onboarding at all</td><td>Assumes every user can immediately understand the interface, excluding users with lower digital literacy or unfamiliar contexts.</td><td class="verdict-no">✕ Skip</td></tr>
+        <tr><td>One-size-fits-all onboarding</td><td>Does not account for the diverse needs and experiences of different users, leading to a suboptimal experience for some.</td><td class="verdict-no">✕ Skip</td></tr>
+        <tr class="chosen"><td>Adaptive onboarding</td><td>Adjusts the onboarding experience based on user characteristics and behavior, providing a more personalized and effective approach.</td><td class="verdict-yes">✓ Built this</td></tr>
+      </table>
+    </section>
+
+    <!-- APPROACH -->
+<section class="case-section" id="approach">
+  <div class="section-eyebrow">Approach</div>
+  <h2 class="section-title">Inclusive Design & Double Diamond</h2>
+
+  <p class="section-text">
+    This project followed an <strong>Inclusive Design</strong> approach, using
+    human diversity as the starting point for designing more accessible
+    onboarding experiences.
+    <br><br>
+    Instead of assuming that all users should interact with the same interface
+    in the same way, the project explored how onboarding could adapt to
+    different levels of digital literacy while maintaining a shared, accessible
+    experience.
+    <br><br>
+    To structure the research and design process, I followed the
+    <strong>Double Diamond</strong> framework, moving iteratively through four
+    stages:
+  </p>
+
+  <figure class="approach-figure">
+  <img
+    src="static/portfolio/root-skills/double-diamond.png"
+    alt="Double Diamond framework showing the Discover, Define, Develop and Deliver phases."
+    class="approach-image"
+  />
+  <figcaption style="margin-top: 0px;">
+    The Double Diamond framework guided the research and design process.
+  </figcaption>
+</figure>
+  <figure class="approach-figure">
+  <img
+    src="static/portfolio/root-skills/process.png"
+    alt="Process and phases."
+    class="approach-image"
+  />
+  <figcaption style="margin-bottom: 40px;">
+    This is the process I follow to design Root Skill experience.
+  </figcaption>
+</figure>
+
+
+    <!-- HOW IT WORKS -->
+    <section class="case-section" id="how-it-works">
+      <div class="section-eyebrow">How it works</div>
+      <h2 class="section-title">Helping users from the very first interaction</h2>
+      <p class="section-text">The experience begins with an AI assistant that asks a few questions to understand each learner's background and goals.<br>
+        Based on their responses, the onboarding adapts the level of guidance and interface support. Beyond onboarding, the assistant remains available to explain lessons and activities, providing contextual help without requiring students to leave the platform.</p>
+      <div class="process-steps">
+        
+        <div class="process-step">
+          <div class="process-icon">01</div>
+          <div class="process-content">
+            <div class="process-text">
+              <div class="process-name">Conversational onboarding</div>
+              <div class="process-desc">The AI assistant greets each new learner with a short, conversational Q&A that identifies their background, prior experience, and learning goals: replacing static forms with a natural, low-friction intro.</div>
+            </div>
+            <img src="static/portfolio/root-skills/conversational-onboarding.png" class="process-image">
+          </div>
+        </div>
+
+        <div class="process-step">
+  <img src="static/portfolio/root-skills/adaptive-interface.png" class="process-image">
+  <div class="process-icon">02</div>
+  <div class="process-text">
+    <div class="process-name">Adaptive interface</div>
+    <div class="process-desc">The interface dynamically adjusts based on the user's interactions and preferences, providing a personalized experience. Thanks to this feature,  beginners get more scaffolding and explanations, advanced users get a leaner, faster experience.</div>
+  </div>
+</div>
+
+        <div class="process-step">
+          <div class="process-icon">03</div>
+          <div class="process-content">
+            <div class="process-text">
+              <div class="process-name">Contextual help</div>
+              <div class="process-desc">The AI assistant remains available throughout the learning journey to provide contextual help and explanations, ensuring students never feel lost or overwhelmed.</div>
+            </div>
+            <img src="static/portfolio/root-skills/context-help.png" class="process-image">
+          </div>
+          </div>
+
+      </div>
+    </section>
+
+    <!-- IMPACT -->
+    <section class="case-section" id="impact">
+      <div class="section-eyebrow">Impact</div>
+      <h2 class="section-title">How to measure success?</h2>
+      <p class="section-text">Although this was a conceptual project, the proposed solution was validated through user testing and 
+        academic evaluation, demonstrating the potential of adaptive onboarding to improve first-time user experiences.</p>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-value">2</div>
+          <div class="stat-label">design iterations</div>
+          <div class="stat-desc">Each testing round informed meaningful improvements to the onboarding experience.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">+5</div>
+          <div class="stat-label">user tests conducted</div>
+          <div class="stat-desc">Conducted with representative users to validate usability and accessibility.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">+20</div>
+          <div class="stat-label">product screens</div>
+          <div class="stat-desc">From onboarding to learning support, covering the project's core user journey.</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">Published</div>
+          <div class="stat-label">Master's thesis</div>
+          <div class="stat-desc">"Root Skills" was commended by the UOC tribunal and officially selected for publication in the university's open repository.</div>
+        </div>
+      </div>
+      <div class="section-image">
+        <img src="static/portfolio/root-skills/benchmarking.png">
+      </div>
+    </section>
+
+    <!-- LEARNINGS -->
+    <section class="case-section" id="learnings">
+      <div class="section-eyebrow">Learnings</div>
+      <h2 class="section-title">Design takeaways</h2>
+      <p class="section-text">Designing for inclusion means adapting experiences to people rather than expecting people to adapt to technology:</p>
+      <div>
+        <ul class="section-text">
+          <li>Inclusive Design starts with understanding diverse user needs, not designing for an "average" user.</li>
+          <li>Personalization can reduce cognitive load and improve first-time user experiences.</li>
+          <li>AI can enhance accessibility when used as a supportive tool, not as the product itself.</li>
+          <li>Early and repeated user testing led to more informed design decisions.</li>
+          <li>Iteration is an essential part of building meaningful user experiences.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WHAT'S NEXT -->
+    <section class="case-section" id="next">
+      <div class="section-eyebrow">What's next</div>
+      <h2 class="section-title">Beyond the prototype</h2>
+        <p class="section-text">My next goal is to work on its launch as a fully functional prototype powered by real AI models capable of dynamically adapting onboarding based on user behavior.</p>
+        <p class="section-text">Additional opportunities include validating the framework with larger and more diverse user groups, integrating behavioral analytics, measuring long-term retention,
+          and exploring adaptive onboarding in domains beyond EdTech, such as healthcare, finance, and government digital services.</p>
+      <div class="status-card">
+        </ul>
+      </div>
+    </section>
+
+
+    <!-- CTA -->
+    <div class="case-cta">
+      <div class="cta-title">Let's create something remarkable!</div>
+      <a class="send-btn" href="mailto:anarivera.designer@gmail.com?subject=Let%27s%20work%20together">Contact me ↗</a>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="case-footer">
+      <span>© 2026 Ana Rivera. All rights reserved.<br>Designed, built, and launched by Ana Rivera x Lagom Web Studio in 2026.</span>
+      <a href="#top">Back to top ↑</a>
+    </div>
+
+  </main>
+</div>
+
+<script>
+/* scrollspy for TOC */
+const sections = document.querySelectorAll('.case-section');
+const tocItems = document.querySelectorAll('.toc-item');
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      tocItems.forEach(item=>{
+        item.classList.toggle('active', item.getAttribute('href') === '#'+entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-20% 0px -70% 0px', threshold: 0 });
+sections.forEach(s=>observer.observe(s));
+</script>
+</body>
+</html>
