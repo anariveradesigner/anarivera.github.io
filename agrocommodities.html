@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agrocommodities</title>
+<link rel="icon" type="image/png" href="static/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spacer&family=League+Spartan:wght@100..900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --orange: #f4a259;
+    --white: #dee9ec;
+    --jade: #5b8e7d;
+    --green: #8cb369;
+    --yellow: #f4e285;
+    --dark-brown: #615055;
+    --orange-dim: #f4a15928;
+    --white-bg: rgba(255, 255, 255, 0.178);
+    --border: rgba(166, 192, 150, 0.466);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 400;
+  background: var(--white);
+  color: var(--dark-brown);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--orange);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  opacity: 0.6;
+}
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.5;
+}
+
+/* NAV */
+.back-to-projects {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dark-brown);
+  text-decoration: none;
+  transition: color 0.3s, transform 0.3s;
+}
+
+.back-to-projects:hover {
+  color: var(--orange);
+  transform: translateX(-4px);
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px; /* Slightly reduced padding for a sleeker profile */
+    /* 🍾 THE GLASS EFFECT */
+  background: rgba(188, 218, 80, 0.336); /* Semi-transparent matching your --dark background */
+  backdrop-filter: blur(12px); /* Blurs whatever content scrolls underneath it */
+  -webkit-backdrop-filter: blur(12px); /* Vital for Safari support */
+    /* 💎 GLASS HIGHLIGHTS */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.041); /* Mimics light catching the edge of glass */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.021); /* Soft shadow so it floats cleanly over text */
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dark-brown);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--orange);
+  transition: width 0.35s ease;
+}
+
+.nav-links a:hover { color: var(--orange); }
+.nav-links a:hover::after { width: 100%; }
+
+/* LANGUAGE SELECTOR */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 4px;
+  background: #61505570;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--dark-brown);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: color 0.3s ease, background 0.3s ease;
+}
+
+.lang-btn:hover {
+  color: #615055cc;
+}
+
+.lang-btn.active {
+  color: var(--white);
+  background: var(--dark-brown);
+}
+
+@media (max-width: 960px) {
+  .lang-switch { padding: 3px; }
+  .lang-btn { padding: 5px 10px; font-size: 0.65rem; }
+}
+
+/* HERO */
+.hero {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 140px 60px 80px;
+  overflow: hidden; /* This keeps the laptop cut clean at the screen edge */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 55%; /* Changed from 900px to prevent text from colliding with the laptop */
+  text-align: left;
+}
+
+.hero-title {
+  font-family: 'League Spartan', sans-serif;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  margin-bottom: 20px;
+}
+
+.agro {
+  color: var(--jade);
+}
+
+.commodities {
+  color: var(--orange);
+}
+
+.hero-subtitle {
+  font-size: clamp(20px, 2.5vw, 26px);
+  font-weight: 680;
+  letter-spacing: 0.02em;
+  color: var(--dark-brown);
+  margin-bottom: 24px;
+  line-height: 1.4;
+  max-width: 700px;
+}
+
+.hero-desc {
+  font-size: clamp(16px, 1.7vw, 16px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: #397460;
+  max-width: 760px;
+  margin-bottom: 32px; /* ◄ Añade esta línea para separar el texto del botón */
+}
+
+/* 💻 NEW LAPTOP STYLES */
+.hero-image {
+  position: absolute !important;
+  right: -24px; /* Disregards padding; pushes 150px of the laptop off the screen */
+  top: 48%;
+  transform: translateY(-35%); /* Sets base alignment for the entrance animation */
+  width: 37%; 
+  max-width: 700px;
+  z-index: 1;
+  pointer-events: none; /* Prevents invisible boundaries from blocking text links */
+    /* Retains your elegant loading animations */
+  animation: 
+    laptopEntrance 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.5s forwards,
+    laptopFloat 6s ease-in-out 1.7s infinite;
+}
+
+.hero-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 25px 60px rgba(0, 0, 0, 0.6)); /* Premium shadow effect */
+}
+
+@media (max-width: 960px) {
+  .overview-grid { grid-template-columns: 1fr; gap: 24px; }
+  .features-container { grid-template-columns: 1fr; gap: 40px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+  .img-main { height: 350px; }
+  .img-side { height: 200px; }
+  nav { padding: 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 24px; }
+
+  /* 📱 RESPONSIVE ADJUSTMENTS FOR HERO */
+  .hero {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    padding-top: 160px;
+  }
+  
+  .hero-content {
+    max-width: 100%;
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .hero-image {
+    position: relative;
+    right: auto;
+    top: auto;
+    transform: none;
+    width: 90%;
+    max-width: 450px;
+    margin: 0 auto;
+    animation: fadeUp 1s ease forwards;
+  }
+}
+
+/* SECTION BASE */
+section {
+  padding: 80px 5vw;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: 'League Spartan', sans-serif;
+  font-size: clamp(32px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 40px;
+  color: var(--orange);
+}
+
+/* 📂 ESTILOS PARA LA SUB-NAVBAR DE CARPETAS */
+.project-sub-nav {
+  display: flex;
+  gap: 36px;
+  justify-content: center; 
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 32px 5vw;
+  background: rgba(255, 255, 255, 0.11);
+  border-bottom: 1px solid var(--border);
+  border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.sub-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 16px;
+  background: var(--white-bg);
+  border: 2px solid var(--border);
+  padding: 12px 28px;
+  border-radius: 6px;
+  color: #5f7e44;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Efectos Hover heredados del ecosistema Lagom */
+.sub-nav-btn:hover {
+  border-color: #8cb369;
+  color: #8cb369;
+  background: #8cb36944;
+  transform: translateY(-2px);
+}
+
+/* Animación del icono SVG al pasar el cursor */
+.folder-icon {
+  stroke: #6a8b4c;
+  transition: stroke 0.3s ease, transform 0.3s ease;
+}
+
+.sub-nav-btn:hover .folder-icon {
+  stroke: #638347;
+  transform: scale(1.05);
+}
+
+/* Ajuste responsivo rápido */
+@media (max-width: 768px) {
+  .project-sub-nav {
+    gap: 10px;
+    padding: 20px 24px;
+  }
+  .sub-nav-btn {
+    padding: 10px 16px;
+    font-size: 0.8rem;
+  }
+}
+
+/* PROJECT OVERVIEW GRID */
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  margin-top: 20px;
+}
+
+.overview-block {
+  background: var(--white-bg);
+  border: 2px solid var(--border);
+  padding: 40px 32px;
+  border-radius: 6px;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.overview-block:hover {
+  background: rgba(209, 185, 80, 0.247);
+}
+
+.overview-block h3 {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--orange);
+  margin-bottom: 16px;
+  letter-spacing: 0.03em;
+}
+
+.overview-block p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(97, 80, 85, 0.75);
+}
+
+#features {
+  padding: 80px 5vw 80px;
+}
+#features .section-title {
+  margin-bottom: 40px;
+}
+
+/* KEY FEATURES — old carousel rules removed, replaced by .feature-row styles below */
+
+/* KEY FEATURES — TWO COLUMN ROWS */
+.features-rows {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.feature-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: center;
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.feature-row:first-child { padding-top: 16px; }
+.feature-row:last-child { border-bottom: none; padding-bottom: 16px; }
+
+.feature-row.reverse .feature-row-media { order: 2; }
+.feature-row.reverse .feature-row-content { order: 1; }
+
+/* Browser / desktop mockup */
+.browser-mockup {
+  background: var(--white-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.browser-topbar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  background: rgba(255,255,255,0.02);
+  border-bottom: 1px solid var(--border);
+}
+
+.browser-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.browser-dot.red { background: #ff5f57; }
+.browser-dot.yellow { background: #febc2e; }
+.browser-dot.green { background: #28c840; }
+
+.browser-url {
+  flex: 1;
+  background: rgba(255,255,255,0.04);
+  border-radius: 4px;
+  padding: 4px 12px;
+  margin-left: 8px;
+  font-size: 0.7rem;
+  font-weight: 300;
+  color: rgba(97, 80, 85, 0.65);
+}
+
+.browser-body {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  color: rgba(255,255,255,0.3);
+}
+
+.browser-body img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.browser-num {
+  position: absolute;
+  top: 14px;
+  right: 22px;
+  font-family: 'League Spartan', sans-serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.1);
+  z-index: 2;
+  line-height: 1;
+}
+
+.browser-tag {
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 4px;
+  z-index: 2;
+}
+
+/* Content side */
+.feature-meta {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.feature-num-label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  color: var(--orange);
+}
+
+.feature-meta-line {
+  width: 26px;
+  height: 1px;
+  background: var(--border);
+}
+
+.feature-tag-pill {
+  background: var(--orange-dim);
+  border: 2px solid var(--border);
+  color: var(--orange);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 4px;
+}
+
+.feature-row-content h3 {
+  font-family: 'League Spartan', sans-serif;
+  font-size: clamp(26px, 2.8vw, 38px);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+  color: var(--dark-brown);
+}
+
+.feature-row-content .feature-subtitle {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--orange);
+  margin-bottom: 18px;
+}
+
+.feature-row-content .feature-desc {
+  font-size: 0.95rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(97, 80, 85, 0.75);
+  max-width: 460px;
+  margin-bottom: 24px;
+}
+
+.feature-points {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.feature-points li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: rgba(97, 80, 85, 0.85);
+}
+
+.feature-points li svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+  color: var(--orange);
+}
+
+.view-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--orange);
+  text-decoration: none;
+  transition: gap 0.3s, color 0.3s;
+}
+
+.view-detail:hover {
+  gap: 12px;
+  color: var(--jade);
+}
+
+/* Responsive tweaks for the feature rows */
+@media (max-width: 960px) {
+  .feature-row {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 40px 0;
+  }
+  .feature-row.reverse .feature-row-media { order: 1; }
+  .feature-row.reverse .feature-row-content { order: 2; }
+  .feature-row-content .feature-desc { max-width: 100%; }
+}
+
+/* ==========================================
+   NATIVE GLASS TESTIMONIAL CARD
+   ========================================== */
+
+.testimonial-container {
+  display: flex;
+  justify-content: center; /* Centers the vertical card perfectly */
+  width: 100%;
+  padding: 20px 0;
+}
+
+/* 1. Base Styles: Designed for Mobile (Vertical & Centered) */
+.native-testimonial-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.144) 100%);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 28px;
+  padding: 40px 30px; /* Slightly tighter padding for mobile screens */
+  max-width: 480px;   /* Keeps it looking comfortably vertical on mobile */
+  width: 100%;
+  text-align: center;
+  box-shadow: 0 10px 20px rgba(192, 192, 192, 0.466);
+  
+  /* Layout engine */
+  display: flex;
+  flex-direction: column; /* Stacks items vertically on mobile */
+  
+  transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1), 
+              box-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+              border-color 0.4s ease;
+}
+
+.testimonial-quote {
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  font-weight: 200;
+  line-height: 1.5;
+  color: rgba(97, 80, 85, 0.9);
+  font-style: italic;
+  margin-bottom: 28px; /* Spaces out from the profile below it on mobile */
+  letter-spacing: 0.01em;
+}
+
+.testimonial-profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the avatars and name on mobile */
+}
+
+/* Overlapping Avatars Trick */
+.avatar-group {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.profile-avatar {
+  width: 88px;
+  height: 88px;
+  border-radius: 60%;
+  object-fit: cover;
+  border: 2px solid var(--dark-brown); /* Creates a clean slice illusion between them */
+  background: var(--orange); /* Brand background color fallback */
+}
+
+.profile-avatar:not(:first-child) {
+  margin-left: -18px; /* Pulls the second image over the first one */
+}
+
+.profile-name {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--dark-brown);
+  margin-bottom: 4px;
+}
+
+.profile-role {
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(97, 80, 85, 0.65);
+  letter-spacing: 0.02em;
+}
+
+/* Micro-Interaction (Hover Effect) */
+.native-testimonial-card:hover {
+  transform: translateY(-10px) scale(1.01);
+  border-color: rgba(88, 88, 88, 0.35); /* Subtle brand red light leak */
+  box-shadow: 0 30px 60px rgba(134, 134, 134, 0.247), 
+              0 0 40px rgba(131, 153, 35, 0.075); /* Soft custom brand glow */
+}
+
+@media (min-width: 768px) {
+  .native-testimonial-card {
+    max-width: 920px;       /* Widens the card to allow horizontal breathing room */
+    flex-direction: row;     /* MAGIC LINE: Flips the layout from vertical to horizontal */
+    align-items: center;     /* Centers items perfectly along the horizontal axis */
+    text-align: left;        /* Aligns typography elegantly to the left */
+    padding: 50px 60px;      /* Generous padding for larger viewports */
+    gap: 50px;               /* Explicit grid gap between the quote and the profile */
+  }
+
+  .testimonial-quote {
+    margin-bottom: 0;       /* Removes mobile bottom margin since profile is now on the right */
+    flex: 1;                 /* Tells the quote to stretch and claim the majority of horizontal space */
+    
+    /* UX/UI Detail: Adds an elegant, translucent vertical divider line on the right side of the text */
+    border-right: 1px solid rgba(255, 255, 255, 0.1); 
+    padding-right: 50px;
+  }
+} 
+
+/* TECH STACK */
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+  list-style: none;
+}
+
+.tech-chip {
+  background: var(--white-bg);
+  border: 1px solid rgba(221, 221, 221, 0.349);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  perspective: 1000px; /* Enables 3D effect */
+}
+
+.tech-chip img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.tech-chip:hover img {
+  transform: rotateX(-25deg) rotateZ(5deg) scale(1.15);
+  filter: drop-shadow(0 10px 25px rgba(236, 233, 233, 0.192));
+}
+
+.tech-chip:hover {
+  border-color: #4e474749;
+  background: rgba(255, 255, 255, 0.068);
+}
+
+/* GALLERY PLACEHOLDERS */
+
+#gallery { display: none; }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.gallery-large {
+  grid-column: span 1;
+}
+
+.gallery-thumb-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.placeholder-img {
+  background: linear-gradient(135deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.3);
+  font-weight: 300;
+  font-size: 0.9rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+
+.placeholder-img:hover {
+  border-color: rgba(117, 34, 14, 0.267);
+}
+
+.placeholder-img svg {
+  margin-bottom: 12px;
+  stroke: rgba(255,255,255,0.2);
+}
+
+.placeholder-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.4));
+}
+
+.img-main { height: 530px; }
+.img-side { height: 250px; }
+
+/* CALL TO ACTION */
+.contact-section {
+  background: linear-gradient(to bottom, transparent, #5b8e7d86);
+  text-align: center;
+  padding: 100px 40px;
+}
+
+.contact-section .section-label {
+  justify-content: center;
+}
+
+.contact-subtitle {
+  font-size: clamp(24px, 3.5vw, 38px);
+  font-family: 'League Spartan', sans-serif;
+  font-weight: 700;
+  color: var(--dark-brown);
+  margin-top: 10px;
+  margin-bottom: 20px;
+  line-height: 1.2;
+}
+
+.contact-desc {
+  font-size: 1.05rem;
+  font-weight: 300;
+  color: rgba(97, 80, 85, 0.65);
+  max-width: 600px;
+  margin: 0 auto 40px;
+  line-height: 1.7;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--green);
+  color: var(--dark-brown);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 4px;
+  text-decoration: none;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 40px rgba(197, 128, 111, 0.466);
+}
+
+/* FOOTER */
+footer {
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background:var(--jade);
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: rgba(204, 204, 202, 0.884);
+  font-weight: 300;
+}
+
+/* 1. Modificamos esto para apuntar directamente a la imagen */
+.footer-logo img {
+  max-width: 120px;  /* <-- Modifica este número en píxeles hasta que tenga el tamaño que buscas */
+  height: auto;      /* Mantiene la proporción para que no se deforme */
+  opacity: 0.4;      /* Un tip de diseño: bajarle la opacidad hace que no compita con el contenido principal */
+  transition: opacity 0.3s ease;
+}
+
+/* 2. Opcional: Un pequeño efecto por si pasan el cursor por encima */
+.footer-logo img:hover {
+  opacity: 0.8;
+}
+
+
+/* SCROLL REVEAL EFFECT */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.15s; }
+.reveal-delay-2 { transition-delay: 0.3s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .overview-grid { grid-template-columns: 1fr; gap: 24px; }
+  .features-container { grid-template-columns: 1fr; gap: 40px; }
+  .gallery-grid { grid-template-columns: 1fr; gap: 20px; }
+  .img-main { height: 350px; }
+  .img-side { height: 200px; }
+  nav { padding: 20px; }
+  .nav-links { display: none; }
+  section { padding: 60px 24px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR elements -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="lagom.html#work" class="back-to-projects">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+    <span data-i18n="nav_back">Back to projects</span>
+  </a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a data-i18n="nav_about" href="#about">About</a></li>
+      <li><a data-i18n="nav_work" href="#work">Work</a></li>
+      <li><a data-i18n="nav_process" href="#process">Process</a></li>
+      <li><a data-i18n="nav_contact" href="#contact">Contact</a></li>
+    </ul>
+    <div class="lang-switch" id="langSwitch">
+      <button type="button" class="lang-btn active" data-lang="en">EN</button>
+      <button type="button" class="lang-btn" data-lang="es">ES</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero" id="home">
+  <div class="hero-content">
+  <div class="hero-title">
+    <h1><span class="agro">Agro</span><span class="commodities">Commodities</span></h1>
+  </div>
+    <p style="text-transform: uppercase; font-weight: 400" data-i18n="hero_badge">A website built to serve every kind of visitor: producer, buyer, or partner.</p>
+    <p class="hero-desc" style="margin-top: 20px" data-i18n="hero_desc">
+      Structuring complexity: a B2B catalog site for Mexico's agro-industry.
+      A digital ecosystem designed to streamline product and services management, and improve brand online presence.
+    </p>
+
+    <a href="https://agrocommodities.com.mx/" target="_blank" class="btn-primary">
+      <span data-i18n="hero_btn_visit">Visit Website</span> 
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 4px;"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+    </a>
+  </div>
+
+  <div class="hero-image">
+    <img src="static/laptop-mockup-agrocommodities.png" alt="CRM Laptop Mockup">
+  </div>
+</section>
+
+<!-- SUB-NAVBAR DE CARPETAS (NUEVO ELEMENTO) -->
+<div class="project-sub-nav reveal">
+  <a href="#overview" class="sub-nav-btn">
+    <!-- Tu SVG de carpeta aquí (He dejado un placeholder limpio en SVG) -->
+    <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <span data-i18n="subnav_overview">Overview</span>
+  </a>
+
+  <a href="#features" class="sub-nav-btn">
+    <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <span data-i18n="subnav_features">Key features</span>
+  </a>
+
+  <a href="#tools" class="sub-nav-btn">
+    <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <span data-i18n="subnav_tools">Tools</span>
+  </a>
+
+  <a href="#testimonials" class="sub-nav-btn">
+    <svg class="folder-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+    <span data-i18n="subnav_testimonials">Testimonials</span>
+  </a>
+</div>
+
+
+<!-- PROJECT OVERVIEW -->
+<section id="overview">
+  <div class="section-label reveal" data-i18n="overview_label">Overview</div>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="overview_title">About the project</h2>
+    <div class="overview-grid">
+    <div class="overview-block reveal">
+      <h3 data-i18n="overview_client_title">The client 🔎</h3>
+      <p data-i18n="overview_client_desc">AgroCommodities, a Mexican company specialized in the commercial representation of agricultural producers, agro-industrial companies, and food and beverage packers looking to operate in Mexico.</p>
+    </div>
+    
+    <div class="overview-block reveal reveal-delay-1">
+      <h3 data-i18n="overview_challenge_title">The challenge 🎯</h3>
+      <p data-i18n="overview_challenge_desc">The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines (logistics, foreign trade, contract manufacturing, productive projects) and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.</p>
+    </div>
+    
+    <div class="overview-block reveal reveal-delay-2">
+      <h3 data-i18n="overview_solution_title">The solution 💡</h3>
+      <p data-i18n="overview_solution_desc">A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog (from tomato paste and oils to industrial packaging) in a browsable, visually organized way, with a direct contact flow via WhatsApp and email.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- KEY FEATURES & TECHNOLOGIES -->
+<section id="features" style="background: #8cb36931;">
+  <div class="section-label reveal" data-i18n="features_label">Key features</div>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="features_title">The product we built</h2>
+
+  <div class="features-rows">
+
+    <!-- FEATURE 01 — image left, text right -->
+    <div class="feature-row reveal">
+      <div class="feature-row-media">
+        <div class="browser-mockup">
+          <div class="browser-topbar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+            <span class="browser-url">www.agrocommodities.com.mx</span>
+          </div>
+          <div class="browser-body">
+            <img src="static/feature-catalog.gif" alt="Product Catalog Mockup">
+            <span class="browser-tag">Catalog</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-row-content">
+        <div class="feature-meta">
+          <span class="feature-num-label">01</span>
+          <span class="feature-meta-line"></span>
+          <span class="feature-tag-pill" data-i18n="feat1_tag">Catalog</span>
+        </div>
+        <h3 data-i18n="feat1_title">Product catalog</h3>
+        <p class="feature-subtitle" data-i18n="feat1_subtitle">All your products and services in one place</p>
+        <p class="feature-desc" data-i18n="feat1_desc">A navigation system with a category carousel that lets users explore multiple products without feeling overwhelmed, with visual product cards for each item.</p>
+      </div>
+    </div>
+
+    <!-- FEATURE 02 — text left, image right -->
+    <div class="feature-row reverse reveal">
+      <div class="feature-row-media">
+        <div class="browser-mockup">
+          <div class="browser-topbar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+            <span class="browser-url">www.agrocommodities.com.mx</span>
+          </div>
+          <div class="browser-body">
+            <img src="static/feature-instant.gif" alt="Instant property publishing mockup">
+            <span class="browser-tag" data-i18n="feat2_browsertag">Listings</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-row-content">
+        <div class="feature-meta">
+          <span class="feature-num-label">02</span>
+          <span class="feature-meta-line"></span>
+          <span class="feature-tag-pill" data-i18n="feat2_tag">Listings</span>
+        </div>
+        <h3 data-i18n="feat2_title">Instant property publishing</h3>
+        <p class="feature-subtitle" data-i18n="feat2_subtitle">From the CRM to your website, in one click</p>
+        <p class="feature-desc" data-i18n="feat2_desc">Create a property directly from the CRM and instantly generate its own dedicated page on the website no developer needed, no manual upload, no duplication.</p>
+        <ul class="feature-points">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat2_point1">Individual listing pages generated straight from the CRM</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat2_point2">Full content included: images, details, and contact info</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat2_point3">Publish or unpublish with a single button: no tech knowledge required</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat2_point4">Less dependency on developers means lower ongoing maintenance fees</span>
+          </li>
+          </ul>
+      </div>
+    </div>
+
+    <!-- FEATURE 03 — image left, text right -->
+    <div class="feature-row reveal">
+      <div class="feature-row-media">
+        <div class="browser-mockup">
+          <div class="browser-topbar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+            <span class="browser-url">www.agrocommodities.com.mx</span>
+          </div>
+          <div class="browser-body">
+            <img src="static/feature-doc.gif" alt="Document generator mockup">
+            <span class="browser-tag" data-i18n="feat3_browsertag">DOCUMENT GENERATOR</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-row-content">
+        <div class="feature-meta">
+          <span class="feature-num-label">03</span>
+          <span class="feature-meta-line"></span>
+          <span class="feature-tag-pill" data-i18n="feat3_tag">Documents</span>
+        </div>
+        <h3 data-i18n="feat3_title">Document &amp; contract generator</h3>
+        <p class="feature-subtitle" data-i18n="feat3_subtitle">Legal docs in seconds, not hours</p>
+        <p class="feature-desc" data-i18n="feat3_desc">Generate contracts, agreements, and property documents instantly using smart templates. Ready to use, ready to download.</p>
+        <ul class="feature-points">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat3_point1">Pre-filled templates from existing property data</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat3_point2">PDF export ready to send or print</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat3_point3">Reduce administrative time and human error</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FEATURE 04 — text left, image right -->
+    <div class="feature-row reverse reveal">
+      <div class="feature-row-media">
+        <div class="browser-mockup">
+          <div class="browser-topbar">
+            <span class="browser-dot red"></span>
+            <span class="browser-dot yellow"></span>
+            <span class="browser-dot green"></span>
+            <span class="browser-url">www.agrocommodities.com.mx</span>
+          </div>
+          <div class="browser-body">
+            <img src="static/feature-calendar.gif" alt="Scheduler mockup">
+            <span class="browser-tag" data-i18n="feat4_browsertag">Scheduler</span>
+          </div>
+        </div>
+      </div>
+      <div class="feature-row-content">
+        <div class="feature-meta">
+          <span class="feature-num-label">04</span>
+          <span class="feature-meta-line"></span>
+          <span class="feature-tag-pill" data-i18n="feat4_tag">Scheduler</span>
+        </div>
+        <h3 data-i18n="feat4_title">Property viewing scheduler</h3>
+        <p class="feature-subtitle" data-i18n="feat4_subtitle">Bookings that sync with your team</p>
+        <p class="feature-desc" data-i18n="feat4_desc">Allow clients to book property visits online while keeping every appointment synchronized: no double bookings, no missed calls.</p>
+        <ul class="feature-points">
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat4_point1">Online booking from public listing pages</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat4_point2">Keep your calendar up to date with automatic booking</span>
+          </li>
+          <li>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span data-i18n="feat4_point3">Automatic confirmation emails to clients</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+    
+
+
+<!-- GALLERY SECTION -->
+<section id="gallery">
+  <div class="section-label reveal" data-i18n="gallery_label">Visuals</div>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="gallery_title">Project gallery</h2>
+  
+  <div class="gallery-grid">
+    <div class="placeholder-img img-main reveal">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
+      <span data-i18n="gallery_ph1">[ CRM Dashboard & Desktop Showcase Mockup Placeholder ]</span>
+    </div>
+    <div class="gallery-thumb-stack">
+      <div class="placeholder-img img-side reveal reveal-delay-1">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
+        <span data-i18n="gallery_ph2">[ Mobile Responsive Screenshot ]</span>
+      </div>
+      <div class="placeholder-img img-side reveal reveal-delay-2">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        <span data-i18n="gallery_ph3">[ Contract Builder Interface Mockup ]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="testimonials">
+  <div class="section-label reveal" data-i18n="test_label">Testimonials</div>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="test_title">What our client said</h2>
+  <p class="reveal reveal-delay-1" style="font-size: 1.05rem; color: rgba(97, 80, 85, 0.65); font-weight:300; max-width: 600px; margin-bottom: 40px;" data-i18n="test_desc">
+    Here you can know the opinion of our client about the project, the process, and the final product.
+  </p>
+
+  <div class="testimonial-container reveal reveal-delay-2">
+    <div class="native-testimonial-card">
+      
+      <p class="testimonial-quote" data-i18n="test_quote">
+        "The new platform has significantly improved the way we manage our properties and daily operations. Having everything centralized in one place has helped our team work more efficiently while providing a better experience for our clients.<br><br>
+        We're very happy with the results and excited to continue growing with this solution."
+      </p>
+      
+      <div class="testimonial-profile">
+        <div class="avatar-group">
+          <img src="static/irma-avatar.png" alt="Irma M." class="profile-avatar">
+          <img src="static/pepe-avatar.png" alt="José C." class="profile-avatar">
+        </div>
+        
+        <h4 class="profile-name" data-i18n="test_name">IRMA M. Y JOSÉ C.</h4>
+        <p class="profile-role" data-i18n="test_role">Founders of Propiedades Mendoza Curi</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+<section id="tools">
+  <div class="section-label reveal" data-i18n="tools_label">Tools</div>
+  <h2 class="section-title reveal reveal-delay-1" data-i18n="tools_title">Tech stack</h2>
+  <p class="reveal reveal-delay-1" style="font-size: 1.05rem; color: rgba(97, 80, 85, 0.65); font-weight:300; max-width: 600px; margin-bottom: 40px;" data-i18n="tools_desc">
+    Here you can see the list of technologies and tools that drive the development, scalability, and performance of this project.
+  </p>
+  
+  <div class="tech-box reveal reveal-delay-2" style="width: 100%;">
+    <ul class="tech-list" style="margin-top: 0;">
+    
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="static/logo-gemini.png" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="static/claude-logo.svg" />
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- CALL TO ACTION -->
+<section id="cta" class="contact-section">
+  <div class="section-label reveal" data-i18n="cta_label">Contact us</div>
+  <h2 class="contact-subtitle reveal reveal-delay-1" data-i18n="cta_title">Looking for a custom solution?</h2>
+  <p class="contact-desc reveal reveal-delay-2" data-i18n="cta_desc">
+    Whether you need a business website, a custom platform, or workflow automation, we can help bring your ideas to life.
+  </p>
+  <div class="reveal reveal-delay-3">
+    <a href="mailto:anarivera.designer@gmail.com" class="btn-primary" data-i18n="cta_btn">
+      Let's work together →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy" data-i18n="footer_copy">© Designed, built, and launched by Lagom Web Studio in 2026.<br>
+    All rights reserved.</p>
+  <div class="footer-logo">
+    <img src="static/lagom-logo-simplified.png" alt="Lagom Web Studio Logo">
+  </div>
+</footer>
+
+<script>
+// Custom Cursor Scripts
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Active states on hover for interactive elements
+document.querySelectorAll('a, button, .overview-block, .feature-item, .placeholder-img, .tech-chip, .native-testimonial-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    cursorRing.style.width = '56px';
+    cursorRing.style.height = '56px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+    cursorRing.style.width = '36px';
+    cursorRing.style.height = '36px';
+  });
+});
+
+// Scroll Reveal Observer
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Feature rows are static — no carousel JS needed.
+
+const translations = {
+  en: {
+    // Nav
+    nav_about: "About", nav_work: "Work", nav_process: "Process", nav_contact: "Contact",
+
+
+    // Hero
+    hero_title: 'Propiedades<br><span style="color: var(--orange)">Mendoza Curi</span>',
+    hero_badge: "From one property entry to a fully operational listing",
+    hero_btn_visit: "Visit Website",
+    hero_desc: "This real estate website is much more than an online catalog.<br>A digital ecosystem designed to streamline property management, automate listings, and improve agent productivity.",
+
+
+    // Overview / About
+    overview_label: "Overview",
+    overview_title: "About the project",
+    overview_desc: "Propiedades Mendoza Curi is a modern web ecosystem built to scale real estate operations. By blending advanced front-end interactions with a robust back-end, this platform transforms how properties are managed, tracked, and showcased.",
+
+
+    // Testimonials
+    test_label: "Testimonials",
+    test_title: "What our client said",
+    test_role: "Founders of Propiedades Mendoza Curi",
+    test_desc: "Here you can know the opinion of our client about the project, the process, and the final product.",
+    test_quote: "The new platform has significantly improved the way we manage our properties and daily operations.\n\nHaving everything centralized in one place has helped our team work more efficiently while providing a better experience for our clients.<br><br>We're very happy with the results and excited to continue growing with this solution.",
+
+    // Nav and subnav
+    nav_back: "Back to projects",
+    subnav_overview: "Overview",
+    subnav_features: "Key features",
+    subnav_tools: "Tools",
+    subnav_testimonials: "Testimonials",
+
+    // Overview section
+    overview_client_title: "The client 🔎",
+    overview_client_desc:
+      "AgroCommodities needed something different: a platform capable of supporting the entire operation of a growing agro-industry business while delivering a premium experience to producers, buyers, and partners.",
+
+    overview_challenge_title: "The challenge 🎯",
+    overview_challenge_desc: "The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines (logistics, foreign trade, contract manufacturing, productive projects) and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.",
+
+    overview_solution_title: "The solution 💡",
+    overview_solution_desc: "A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog (from tomato paste and oils to industrial packaging) in a browsable, visually organized way, with a direct contact flow via WhatsApp and email.",
+
+    // Key features section
+    features_label: "Key features",
+    features_title: "The product we built",
+
+    feat1_tag: "Catalog",
+    feat1_browsertag: "Product Catalog",
+    feat1_title: "Visual product catalog",
+    feat1_subtitle: "Explore products in a browsable interface",
+    feat1_desc:
+      "A navigation system with a category carousel that lets users explore multiple products without feeling overwhelmed, with visual product cards for each item.",
+
+    feat2_tag: "Listings",
+    feat2_browsertag: "Listings",
+    feat2_title: "Instant property publishing",
+    feat2_subtitle: "From the CRM to your website, in one click",
+    feat2_desc: "Create a property directly from the CRM and instantly generate its own dedicated page on the website no developer needed, no manual upload, no duplication.",
+    feat2_point1: "Individual listing pages generated straight from the CRM",
+    feat2_point2: "Full content included: images, details, and contact info",
+    feat2_point3: "Publish or unpublish with a single button: no tech knowledge required",
+    feat2_point4: "Less dependency on developers means lower ongoing maintenance fees",
+
+    feat3_tag: "Documents",
+    feat3_browsertag: "Document Generator",
+    feat3_title: "Document & contract generator",
+    feat3_subtitle: "Legal docs in seconds, not hours",
+    feat3_desc: "Generate contracts, agreements, and property documents instantly using smart templates. Ready to use, ready to download.",
+    feat3_point1: "Pre-filled templates from existing property data",
+    feat3_point2: "PDF export ready to send or print",
+    feat3_point3: "Reduce administrative time and human error",
+
+    feat4_tag: "Scheduler",
+    feat4_browsertag: "Scheduler",
+    feat4_title: "Property viewing scheduler",
+    feat4_subtitle: "Bookings that sync with your team",
+    feat4_desc: "Allow clients to book property visits online while keeping every appointment synchronized: no double bookings, no missed calls.",
+    feat4_point1: "Online booking from public listing pages",
+    feat4_point2: "Keep your calendar up to date with automatic booking",
+    feat4_point3: "Automatic confirmation emails to clients",
+    feat4_point4: "Reduce administrative time and human error",
+    feat4_point5: "Less dependency on developers means lower ongoing maintenance fees",
+
+
+    //contact section
+    cta_label: "Contact us",
+    cta_title: "Looking for a custom solution?",
+    cta_desc: "Whether you need a business website, a customized platform, or workflow automation, we can help bring your ideas to life.",
+    cta_btn: "Let's work together →",
+
+    //footer
+    footer_copy: "© Designed, built, and launched by Lagom Web Studio in 2026.<br>All rights reserved.",
+
+    //tools section
+    tools_label: "Tools",
+    tools_title: "Tech stack",
+    tools_desc: "Here you can see the list of technologies and tools that drive the development, scalability, and performance of this project."
+  },
+  
+  es: {
+    // Nav
+    nav_about: "Nosotros", nav_work: "Proyectos", nav_process: "Proceso", nav_contact: "Contacto",
+
+
+    // Hero
+    hero_title: 'Propiedades<br><span style="color: var(--orange)">Mendoza Curi</span>',
+    hero_badge: "De una simple propiedad a un catálogo completamente operativo",
+    hero_btn_visit: "Visitar sitio web",
+    hero_desc: "Este sitio web inmobiliario es mucho más que un catálogo en línea.<br>Un ecosistema digital diseñado para optimizar la gestión de propiedades, automatizar listados y mejorar la productividad de los agentes.",
+    
+    
+    // Overview / About
+    overview_label: "Resumen",
+    overview_title: "Sobre el proyecto",
+    overview_desc: "Propiedades Mendoza Curi es un ecosistema web moderno diseñado para escalar operaciones inmobiliarias. Al combinar interacciones front-end avanzadas con un back-end robusto, esta plataforma transforma la forma en que se gestionan, rastrean y muestran las propiedades.",
+    
+    
+    // Testimonials
+    test_label: "Opiniones",
+    test_title: "Lo que dice nuestro cliente",
+    test_role: "Fundadores de Propiedades Mendoza Curi",
+    test_desc: "Aquí puedes conocer la opinión de nuestro cliente sobre el proyecto, el proceso y el producto final.",
+    test_quote: "La nueva plataforma ha mejorado significativamente la forma en que gestionamos nuestras propiedades y operaciones diarias.<br><br>Tener todo centralizado en un solo lugar ha ayudado a nuestro equipo a trabajar de manera más eficiente, al mismo tiempo que ofrece una mejor experiencia a nuestros clientes. Estamos muy contentos con los resultados y entusiasmados de seguir creciendo con esta solución.",
+  
+    // Nav and subnav
+    nav_back: "Volver a proyectos",
+    subnav_overview: "Resumen",
+    subnav_features: "Características",
+    subnav_tools: "Herramientas",
+    subnav_testimonials: "Opiniones",
+
+    // Overview section
+    overview_client_title: "Cliente 🔎",
+    overview_client_desc:
+      "Propiedades Mendoza Curi necesitaba algo diferente: una plataforma capaz de respaldar toda la operación de un negocio inmobiliario en crecimiento y ofrecer una experiencia premium a compradores y vendedores.",
+
+    overview_challenge_title: "Desafío 🎯",
+    overview_challenge_desc:
+      "Gestionar grandes cantidades de propiedades se volvió cada vez más ineficiente. Publicar anuncios, actualizar información, organizar documentos y generar contratos requería múltiples procesos manuales que consumían tiempo valioso y ralentizaban las operaciones diarias.",
+
+    overview_solution_title: "Solución 💡",
+    overview_solution_desc:
+      "Construimos una plataforma completamente personalizada, diseñada para mejorar el flujo de trabajo de la empresa. Gracias a un CRM integrado, los agentes pueden gestionar propiedades, subir imágenes y documentación, generar contratos y publicar anuncios desde un panel centralizado. Cada propiedad genera automáticamente su propia página.",
+
+    // Key features section
+    features_label: "Características destacadas",
+    features_title: "El producto que construimos",
+
+
+    feat1_title: "Espacio de trabajo CRM centralizado",
+    feat1_subtitle: "Todas tus operaciones en un solo lugar",
+    feat1_desc:
+      "Gestiona propiedades, clientes, documentos y fotografías desde una única plataforma diseñada para el equipo de Mendoza Curi. Se acabó saltar entre herramientas.",
+    feat1_point1: "Panel unificado para propiedades y clientes",
+    feat1_point2: "Actualiza información rápidamente",
+    feat1_point3: "Funciones según el rol de cada miembro del equipo",
+
+    feat2_tag: "Catálogo",
+    feat2_browsertag: "Catálogo",
+    feat2_title: "Publicación instantánea de propiedades",
+    feat2_subtitle: "Desde el CRM hasta tu sitio web, en un solo clic",
+    feat2_desc: "Crea una propiedad directamente desde el CRM y genera instantáneamente su propia página dedicada en el sitio web sin necesidad de desarrolladores, sin carga manual y sin duplicación.",
+    feat2_point1: "Páginas de listado individuales generadas directamente desde el CRM",
+    feat2_point2: "Contenido completo incluido: imágenes, detalles y información de contacto",
+    feat2_point3: "Publica o elimina propiedades con un solo botón: no se requiere conocimiento técnico",
+    feat2_point4: "Menor dependencia de desarrolladores = menores costos de mantenimiento continuo",
+
+    feat3_tag: "Documentos",
+    feat3_browsertag: "Generador de documentos",
+    feat3_title: "Generador de documentos y contratos",
+    feat3_subtitle: "Documentos legales en segundos, no en horas",
+    feat3_desc: "Genera contratos, acuerdos y documentos de propiedad instantáneamente usando plantillas inteligentes. Listo para usar, listo para descargar.",
+    feat3_point1: "Plantillas prellenadas con datos de propiedad existentes",
+    feat3_point2: "Exportación a PDF lista para enviar o imprimir",
+    feat3_point3: "Reduce la carga administrativa y el error humano",
+    
+    feat4_tag: "Calendario",
+    feat4_browsertag: "Calendario",
+    feat4_title: "Programador de visitas a propiedades",
+    feat4_subtitle: "Reservas que se sincronizan con tu equipo",
+    feat4_desc: "Permite a los clientes reservar visitas a propiedades en línea mientras mantiene todas las citas sincronizadas: sin reservas dobles, sin llamadas perdidas.",
+    feat4_point1: "Reservas en línea desde páginas de listado público",
+    feat4_point2: "Mantén tu calendario actualizado con reservas automáticas",
+    feat4_point3: "Correos de confirmación automáticos a los clientes",
+
+    //contact section
+    cta_label: "Contáctanos",
+    cta_title: "¿Buscas una solución a medida?",
+    cta_desc: "Ya sea que necesites un sitio web empresarial, una plataforma personalizada o automatización de flujos de trabajo, podemos ayudarte a dar vida a tus ideas.",
+    cta_btn: "Trabajemos juntos →",
+
+    //footer
+    footer_copy: "© Diseñado, desarrollado y lanzado por Lagom Web Studio en 2026.<br>Todos los derechos reservados.",
+
+  //tools section
+    tools_label: "Herramientas",
+    tools_title: "Software y tecnologías",
+    tools_desc: "Aquí puedes ver la lista de tecnologías y herramientas que impulsan el desarrollo, la escalabilidad y el rendimiento de este proyecto.",
+  }
+};
+
+
+// 1. LA FUNCIÓN QUE LOGRA LA MAGIA (Busca los elementos etiquetados y les cambia el texto)
+function changeLanguage(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(element => {
+    const key = element.getAttribute('data-i18n');
+    if (translations[lang] && translations[lang][key]) {
+      element.innerHTML = translations[lang][key];
+    }
+  });
+}
+
+// 2. EL ESCUCHADOR DE EVENTOS (Conecta tus botones HTML reales con la función de arriba)
+document.querySelectorAll('#langSwitch .lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    // Quitamos la clase visual 'active' de ambos botones
+    document.querySelectorAll('#langSwitch .lang-btn').forEach(b => b.classList.remove('active'));
+    
+    // Se la añadimos solo al botón al que le acabas de dar clic
+    btn.classList.add('active');
+    
+    // Leemos qué idioma quiere el usuario ('en' o 'es')
+    const selectedLang = btn.getAttribute('data-lang');
+    
+    // ¡Ejecutamos el cambio de textos!
+    changeLanguage(selectedLang);
+    
+    // Guardamos su preferencia en la memoria local del navegador
+    localStorage.setItem('preferredLanguage', selectedLang);
+  });
+});
+
+// 3. AL CARGAR LA PÁGINA (Comprueba si el usuario ya tenía un idioma elegido antes)
+document.addEventListener('DOMContentLoaded', () => {
+  const savedLang = localStorage.getItem('preferredLanguage') || 'en';
+  const targetBtn = document.querySelector(`#langSwitch .lang-btn[data-lang="${savedLang}"]`);
+  
+  if (targetBtn) {
+    document.querySelectorAll('#langSwitch .lang-btn').forEach(b => b.classList.remove('active'));
+    targetBtn.classList.add('active');
+    changeLanguage(savedLang);
+  }
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ana Rivera — Designer & Developer</title>
+<link rel="icon" type="image/png" href="static/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@100..900&family=Poppins:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+:root {
+    --gold: #AF6E92; /* Cambiamos el hex, pero dejamos el nombre de la variable para no romper el resto del código */
+    --dark: #303030;
+    --white: #ffffff;
+    --gray: #9CA3AF;
+    --gold-dim: rgba(175, 110, 146, 0.1); /* Este es tu rosa en versión semitransparente para los fondos */
+  }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  position: fixed;
+  width: 12px;
+  height: 12px;
+  background: var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s ease, width 0.3s, height 0.3s, background 0.3s;
+  mix-blend-mode: difference;
+}
+
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--gold);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, width 0.3s, height 0.3s, opacity 0.3s;
+  opacity: 0.6;
+}
+
+/* NOISE TEXTURE OVERLAY */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 100;
+  opacity: 0.5;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px; /* Slightly reduced padding for a sleeker profile */
+    /* 🍾 THE GLASS EFFECT */
+  background: rgba(48, 48, 48, 0.514); /* Semi-transparent matching your --dark background */
+  backdrop-filter: blur(12px); /* Blurs whatever content scrolls underneath it */
+  -webkit-backdrop-filter: blur(12px); /* Vital for Safari support */
+    /* 💎 GLASS HIGHLIGHTS */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.021); /* Mimics light catching the edge of glass */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2); /* Soft shadow so it floats cleanly over text */
+    transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.nav-logo {
+  font-family: 'Belanosima', 'Poppins', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  text-decoration: none;
+  position: relative;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold);
+  transition: width 0.35s ease;
+}
+
+.nav-links a:hover { color: var(--white); }
+.nav-links a:hover::after { width: 100%; }
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  position: relative;
+  padding: 120px 60px 80px;
+  overflow: hidden;
+}
+
+@keyframes pulse-glow {
+  from { transform: scale(1); opacity: 0.6; }
+  to { transform: scale(1.15); opacity: 1; }
+}
+
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 760px;
+  text-align: left;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold-dim);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 16px;
+  animation: fadeUp 0.8s ease both;
+}
+
+.hero-tag::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.2; }
+}
+
+.hero-name {
+  font-family: 'Belanosima', 'Poppins', sans-serif;
+  font-size: clamp(40px, 5.5vw, 84px);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  animation: fadeUp 0.8s 0.1s ease both;
+  max-width: none;
+  display: block;
+
+}
+
+.hero-logo {
+  display: block;
+  margin-top: 0px;       /* <-- Reducido al mínimo el margen superior */
+  margin-bottom: 20px;   /* Espacio entre el logo y el texto de abajo */
+  margin-left: 0;     /* <-- Truco mágico: empuja el logo hacia la derecha */
+  margin-right: auto;       /* <-- Lo pega por completo al borde derecho */
+  max-width: 270px;      /* El tamaño reducido que querías */
+  height: auto;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 100;
+  font-size: 16px;     /* <-- AQUÍ controlas el tamaño. Puedes probar con 18px o 22px hasta que te encante */
+  letter-spacing: 0.1em; /* Tip de diseño: a las letras en mayúsculas y delgadas les viene genial un poco de espacio entre ellas */
+  text-align: left;
+}
+
+h2 {
+  text-transform: none;
+  font-weight: 100;
+  font-size: 20px;     /* <-- AQUÍ controlas el tamaño. Puedes probar con 18px o 22px hasta que te encante */
+  letter-spacing: 0.1em; /* Tip de diseño: a las letras en mayúsculas y delgadas les viene genial un poco de espacio entre ellas */
+  text-align: left;
+}
+
+.hero-name span {
+  display: block;
+  color: var(--gold);
+  position: relative;
+  white-space: inline-block;
+}
+
+.hero-role {
+  font-size: clamp(16px, 2.5vw, 20px);
+  font-weight: 300, 200, 100;
+  letter-spacing: 0.02em;
+  color: rgba(255,255,255,0.55);
+  margin-top: 24px;
+  line-height: 1.6;
+  max-width: 480px;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+
+.hero-role em {
+  color: var(--gold-light);
+  font-style: normal;
+  font-weight: 500;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 16px;
+  margin-top: 28px;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--gold);
+  color: var(--dark);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.1);
+  transform: translateX(-100%);
+  transition: transform 0.4s ease;
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(190, 137, 187, 0.4); }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  color: var(--white);
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 32px;
+  border-radius: 4px;
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  transition: border-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+.btn-outline:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+
+
+/* STATS */
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  animation: fadeUp 0.8s 0.4s ease both;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.stat-num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.stat-num span { font-size: 1.5rem; }
+
+.stat-label {
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTION BASE */
+section {
+  padding: 40px 64px;
+  position: relative;
+}
+
+.section-process-desc {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 40px;
+  max-width: 688px;
+}
+
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.section-label::before {
+  display: none;
+}
+
+.section-title {
+  font-family: 'League Spartan', sans-serif;
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+/* ABOUT */
+.about {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 30px;
+  align-items: center;
+}
+
+@media (min-width: 1400px) {
+  .about {
+    grid-template-columns: 2.2fr 1.8fr;
+  }
+
+  .about-photo {
+    max-width: 880px;
+  }
+}
+
+/* Centrar la imagen ahora en la columna izquierda */
+.about-left {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+    margin-left: -50px; /* Ajusta este valor para mover la imagen más a la izquierda o derecha según tu preferencia */
+}
+
+/* El texto en la derecha vuelve a su comportamiento normal */
+.about-right {
+    display: block; 
+}
+
+/* Imagen más grande */
+.about-photo {
+    width: 100%;
+    max-width: 750px; /* <-- Aumentado desde 360px. ¡Puedes subirlo más si lo necesitas! */
+    height: auto;
+}
+
+.about-text {
+  font-size: 0.9rem;
+  font-weight: 300;
+  line-height: 1.8;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 20px;
+}
+
+.about-text strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+
+
+.about-card {
+  background: rgba(240,198,29,0.05);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.about-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+
+/* TECH STACK */
+.tech-box {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 8px;
+  border-radius: 6px;
+  align-self: start;
+}
+
+.tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  list-style: none;
+}
+
+.tech-chip {
+  background: var(--card-bg);
+  border: 1px solid rgba(221, 221, 221, 0.349);
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  perspective: 1000px; /* Enables 3D effect */
+}
+
+.tech-chip img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.tech-chip:hover img {
+  transform: rotateX(-25deg) rotateZ(5deg) scale(1.15);
+  filter: drop-shadow(0 10px 25px rgba(236, 233, 233, 0.192));
+}
+
+.tech-chip:hover {
+  border-color: #4e474749;
+  background: rgba(255, 255, 255, 0.068);
+}
+
+
+.about-deco {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  pointer-events: none;
+}
+
+.about-deco::after {
+  content: '';
+  position: absolute;
+  inset: 20px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+}
+
+/* PROJECTS */
+.projects-section {
+  background: rgba(0,0,0,0.2);
+}
+
+.projects-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 60px;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.project-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-link-featured {
+  grid-column: 1 / -1;
+}
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.08);
+  cursor: none;
+  transition: border-color 0.4s ease, transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease;
+  height: 480px;
+  isolation: isolate;
+}
+
+.project-card.featured {
+  height: 400px;
+}
+
+.project-card:hover {
+  border-color: rgba(243, 164, 226, 0.4);
+  transform: translateY(-8px);
+  box-shadow: 0 40px 70px -25px rgba(0,0,0,0.6);
+}
+
+.project-visual {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Project visual backgrounds */
+.project-card[data-project="fabiola"] .project-visual {
+  background: linear-gradient(135deg, #1a0a2e 0%, #2E2E2E 60%, #1d1010 100%);
+}
+
+.project-card[data-project="root"] .project-visual {
+  background: linear-gradient(135deg, #0a1a10 0%, #2E2E2E 60%, #0d1a15 100%);
+}
+
+.project-card[data-project="uoc"] .project-visual {
+  background: linear-gradient(135deg, #0a0d1a 0%, #2E2E2E 60%, #15100d 100%);
+}
+
+
+/* Decorative visual inside each card */
+.project-mockup {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  transition: transform 0.5s ease;
+}
+
+.project-card:hover .project-mockup {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* Fabiola - social media grid mockup */
+.mockup-fabiola {
+  display: grid;
+  grid-template-columns: repeat(3, 68px);
+  gap: 5px;
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+}
+
+.mockup-fabiola .cell {
+  height: 68px;
+  border-radius: 4px;
+  opacity: 0.85;
+}
+.mockup-fabiola .cell:nth-child(1) { background: linear-gradient(135deg, var(--gold), #e8a020); }
+.mockup-fabiola .cell:nth-child(2) { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1); }
+.mockup-fabiola .cell:nth-child(3) { background: linear-gradient(135deg, #e8a020, #c87800); }
+.mockup-fabiola .cell:nth-child(4) { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.06); }
+.mockup-fabiola .cell:nth-child(5) { background: linear-gradient(135deg, var(--gold), #f5d555); grid-column: span 1; }
+.mockup-fabiola .cell:nth-child(6) { background: rgba(255,255,255,0.08); }
+.mockup-fabiola .cell:nth-child(7) { background: linear-gradient(135deg, #c87800, var(--gold)); grid-column: span 2; }
+.mockup-fabiola .cell:nth-child(8) { background: rgba(255,255,255,0.12); }
+.mockup-fabiola .cell:nth-child(9) { background: var(--gold-dim); border: 1px solid var(--border); }
+
+/* Root Skills - phone mockup */
+.mockup-root {
+  width: 140px;
+  height: 260px;
+  background: #0d1a10;
+  border-radius: 24px;
+  border: 2px solid rgba(255,255,255,0.12);
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+.mockup-root-inner {
+  padding: 20px 14px 14px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mr-bar {
+  height: 6px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, rgba(219, 23, 187, 0.6), transparent);
+}
+
+.mr-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--gold), #e8a020);
+  margin: 0 auto 6px;
+}
+
+.mr-lines { display: flex; flex-direction: column; gap: 6px; }
+.mr-line { height: 5px; border-radius: 3px; background: rgba(255,255,255,0.12); }
+.mr-line:first-child { width: 70%; }
+.mr-line-short { width: 50%; }
+
+.mr-card {
+  background: rgba(240,198,29,0.08);
+  border: 1px solid rgba(240,198,29,0.2);
+  border-radius: 8px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.mr-progress {
+  height: 3px;
+  border-radius: 2px;
+  background: rgba(255,255,255,0.06);
+  overflow: hidden;
+}
+
+.mr-progress-bar {
+  height: 100%;
+  border-radius: 2px;
+  background: var(--gold);
+  width: 65%;
+}
+
+/* UOC - browser/web mockup */
+.mockup-uoc {
+  width: 300px;
+  background: #0d0d14;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+  filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+}
+
+.mockup-uoc-bar {
+  background: rgba(255,255,255,0.05);
+  padding: 8px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.uoc-dot { width: 8px; height: 8px; border-radius: 50%; }
+.uoc-dot:nth-child(1) { background: #ff5f57; }
+.uoc-dot:nth-child(2) { background: #febc2e; }
+.uoc-dot:nth-child(3) { background: #28c840; }
+
+.uoc-url {
+  flex: 1;
+  height: 16px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+.mockup-uoc-hero {
+  height: 80px;
+  background: linear-gradient(135deg, rgba(240,198,29,0.15), rgba(46,46,46,0.8));
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  gap: 12px;
+}
+
+.uoc-hero-text { flex: 1; }
+.uoc-hero-line { height: 8px; border-radius: 3px; background: rgba(255,255,255,0.5); margin-bottom: 6px; }
+.uoc-hero-line.small { width: 60%; height: 5px; background: rgba(255,255,255,0.25); }
+.uoc-hero-btn { width: 60px; height: 22px; border-radius: 2px; background: var(--gold); flex-shrink: 0; }
+
+.mockup-uoc-body { padding: 14px; display: flex; flex-direction: column; gap: 8px; }
+.uoc-card-row { display: flex; gap: 8px; }
+.uoc-mini-card {
+  flex: 1;
+  height: 50px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.uoc-mc-bar { height: 4px; border-radius: 2px; }
+.uoc-mc-bar.gold { background: var(--gold); width: 50%; }
+.uoc-mc-bar.light { background: rgba(255,255,255,0.2); width: 80%; }
+
+/* Glow effect on project visuals */
+.project-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(63, 78, 159, 0.212) 0%, transparent 70%);
+  z-index: 1;
+  transition: opacity 0.4s;
+  opacity: 0;
+}
+
+.project-card:hover .project-glow { opacity: 1; }
+
+/* Darkening scrim so overlaid text stays legible on any visual */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(to top, rgba(10,10,10,0.92) 0%, rgba(10,10,10,0.55) 38%, rgba(10,10,10,0.05) 68%, transparent 100%);
+  pointer-events: none;
+  transition: background 0.4s ease;
+}
+
+.project-card.featured .project-visual {
+  justify-content: flex-end;
+  padding-right: 64px;
+}
+
+.project-card.featured::after {
+  background: linear-gradient(100deg, rgba(10,10,10,0.94) 0%, rgba(10,10,10,0.75) 32%, rgba(10,10,10,0.15) 60%, transparent 85%);
+}
+
+/* Glass number badge, top corner, echoes the process-step nodes */
+.project-num {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-family: 'Belanosima', 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  transition: border-color 0.4s, transform 0.4s;
+}
+
+.project-card:hover .project-num {
+  border-color: rgba(243, 164, 226, 0.5);
+  transform: scale(1.08);
+}
+
+.project-info {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  padding: 30px 34px 32px;
+}
+
+.project-card.featured .project-info {
+  max-width: 560px;
+}
+
+.project-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.tag {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  padding: 4px 12px;
+  border-radius: 100px;
+}
+
+.project-title {
+  font-family: 'League Spartan', 'Poppins', sans-serif;
+  font-size: 1.7rem;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  transition: color 0.3s;
+}
+
+.project-card:hover .project-title { color: var(--gold); }
+
+/* Description + CTA are tucked away, then unfold on hover/focus */
+.project-reveal {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16,1,0.3,1), opacity 0.4s ease, margin-top 0.4s ease;
+}
+
+.project-card:hover .project-reveal,
+.project-card:focus-within .project-reveal {
+  max-height: 220px;
+  opacity: 1;
+  margin-top: 14px;
+}
+
+.project-desc {
+  font-size: 0.85rem;
+  font-weight: 300;
+  line-height: 1.65;
+  color: rgba(255,255,255,0.65);
+  margin-bottom: 18px;
+}
+
+.project-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+  transition: gap 0.3s;
+}
+
+.project-card:hover .project-arrow { gap: 18px; }
+
+/* PROCESS */
+.process-section {
+  overflow: hidden;
+}
+
+.process-steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 84px;
+}
+
+/* Connecting line running through all the number nodes */
+.process-steps::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.18) 6%, rgba(255,255,255,0.18) 94%, transparent);
+  z-index: 0;
+}
+
+.process-step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Glass number node sitting on the connecting line */
+.step-num {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--dark);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-family: 'Belanosima', 'Poppins', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gold);
+  transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+}
+
+.process-step:hover .step-num {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  transform: scale(1.1);
+}
+
+/* Vertical stub connecting the node down to its card; alternating length staggers the row */
+.step-line {
+  width: 1px;
+  margin-left: 23px;
+  background: rgba(255,255,255,0.14);
+}
+
+.process-step:nth-child(1) .step-line,
+.process-step:nth-child(3) .step-line { height: 24px; }
+
+.process-step:nth-child(2) .step-line,
+.process-step:nth-child(4) .step-line { height: 64px; }
+
+.step-card {
+  width: 100%;
+  margin-top: 20px;
+  padding: 28px 26px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.07);
+  transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+}
+
+.process-step:hover .step-card {
+  border-color: rgba(243, 164, 226, 0.35);
+  background: rgba(243, 164, 226, 0.04);
+  transform: translateY(-4px);
+}
+
+.step-title {
+  font-family: 'League Spartan', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.step-desc {
+  font-size: 0.82rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.45);
+}
+
+/* CONTACT */
+.contact-section {
+  background: linear-gradient(to bottom, transparent, rgba(236, 86, 198, 0.103));
+  text-align: center;
+  padding: 80px 40px;
+}
+
+.contact-section .section-label {
+  justify-content: center;
+}
+
+.contact-section .section-label::before { display: none; }
+.contact-section .section-label::after { display: none; }
+
+.contact-subtitle {
+  font-size: 1rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  margin-top: 20px;
+  margin-bottom: 40px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.contact-email {
+  display: inline-block;
+  font-family: 'League Spartan', sans-serif;
+  font-size: clamp(24px, 4vw, 42px);
+  font-weight: 600;
+  color: var(--white);
+  text-decoration: none;
+  position: relative;
+  margin-bottom: 60px;
+  transition: color 0.3s;
+}
+
+.contact-email::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.contact-email:hover { color: var(--gold); }
+.contact-email:hover::after { transform: scaleX(1); }
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.4);
+  text-decoration: none;
+  transition: color 0.3s;
+  padding: 10px;
+}
+
+.social-link:hover { color: var(--gold); }
+
+/* FOOTER */
+footer {
+  padding: 28px 40px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-copy {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.329);
+  font-weight: 300;
+}
+
+/* 1. Modificamos esto para apuntar directamente a la imagen */
+.footer-logo img {
+  max-width: 120px;  /* <-- Modifica este número en píxeles hasta que tenga el tamaño que buscas */
+  height: auto;      /* Mantiene la proporción para que no se deforme */
+  opacity: 0.4;      /* Un tip de diseño: bajarle la opacidad hace que no compita con el contenido principal */
+  transition: opacity 0.3s ease;
+}
+
+/* 2. Opcional: Un pequeño efecto por si pasan el cursor por encima */
+.footer-logo img:hover {
+  opacity: 0.8;
+}
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  nav { padding: 20px 30px; }
+  .nav-links { display: none; }
+  section { padding: 80px 30px; }
+  .hero { padding: 120px 30px 60px; }
+  .about { grid-template-columns: 1fr; gap: 60px; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-link-featured { grid-column: 1; }
+  .project-card { height: 420px; }
+  .project-card.featured { height: 420px; }
+  .project-card.featured .project-info { max-width: none; }
+  .project-card.featured .project-visual { justify-content: center; padding-right: 0; }
+  /* On touch devices there's no hover, so keep the description visible */
+  .project-reveal { max-height: 220px; opacity: 1; margin-top: 14px; }
+  .process-steps { grid-template-columns: 1fr; gap: 0; }
+  .process-steps::before { display: none; }
+  .process-step { flex-direction: row; align-items: flex-start; gap: 20px; padding-bottom: 8px; }
+  .process-step .step-line { display: none; }
+  .process-step:not(:last-child) { position: relative; }
+  .process-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 48px;
+    bottom: -8px;
+    width: 1px;
+    background: rgba(255,255,255,0.14);
+  }
+  .step-card { margin-top: 0; }
+  footer { padding: 24px 30px; }
+  .projects-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+  .hero-stats { gap: 32px; }
+  .hero-number { display: none; }
+  .contact-section { padding: 80px 30px; }
+}
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+<div class="hero-content">
+    <div class="hero-tag">Available for work</div>
+    <img src="static/ana-logo-simplified.png" alt="Ana Rivera Logo" class="hero-logo">
+    <h1 style="text-transform: uppercase; font-weight: 100">product designer & developer</h1>
+    <p class="hero-role">
+      Designer by craft<br>
+      Developer by practice<br>
+      Problem-solver by <em>nature</em><br>
+    </p>
+    <div class="hero-cta">
+      <a href="#work" class="btn-primary">
+        Explore my work
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </a>
+      <a href="#contact" class="btn-outline">Get in touch</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num">4 <span>+</span></div>
+        <div class="stat-label">Projects</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">2 <span>+</span></div>
+        <div class="stat-label">Years Exp.</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100 <span>%</span></div>
+        <div class="stat-label">User-Centered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about">
+
+    <div class="about-left reveal reveal-delay-2">
+      <img src="static/about-photo.png" alt="Photo of Ana Rivera" class="about-photo">
+    </div>
+
+    <div class="about-right">
+      <div class="section-label reveal">About me</div>
+      <h2 class="section-title reveal reveal-delay-1">Creating products <br>with <span style="color: var(--gold)">purpose</span></h2>
+      <p class="about-text reveal reveal-delay-2">
+        I ship products end-to-end. Designer and full-stack developer who takes <strong>projects from concept to production.</strong>
+      </p>
+      <p class="about-text reveal reveal-delay-3">
+        <strong>What I actually do: </strong>Design user experiences, write the code, build the backend infrastructure, deploy to production.
+      </p>
+      <p class="about-text reveal reveal-delay-4">
+        One person who speaks both design and engineering means fewer meetings, clearer decisions, and products that look and work exactly like they were meant to.
+        I'm currently experimenting with <strong>AI tools to speed up the repetitive parts of design and development,</strong> and I'm still figuring out what works and what's just hype.
+      </p> 
+      <p class="about-text reveal reveal-delay-5">
+      Outside of work, you’ll find me swimming, reading, watching films, crafting, or trying (and maybe failing) to keep my plants alive ✨🪴.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<!-- TOOLS -->
+<section id="tools">
+  <div class="section-label reveal">Tools</div>
+  <h2 class="section-title reveal reveal-delay-1">Tech stack</h2>
+  <p class="about-text reveal reveal-delay-2">
+    Here you can see the list of technologies and tools that I commonly use for development and design.
+  </p>
+  
+  <div class="tech-box reveal reveal-delay-2" style="width: 100%;">
+    <ul class="tech-list" style="margin-top: 0;">
+    
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cloudflare/cloudflare-original.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="static/logo-gemini.png" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="static/claude-logo.svg" />
+      </li>
+
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jira/jira-original.svg" />
+      </li>
+      
+      <li class="tech-chip">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/notion/notion-original.svg" />
+      </li>
+
+    </ul>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="work" class="projects-section">
+  <div class="projects-header">
+    <div>
+      <div class="section-label reveal">Selected projects</div>
+      <h2 class="section-title reveal reveal-delay-1">Explore <span style="color: var(--gold)">my work<span></span></h2>
+        <p class="about-text reveal reveal-delay-2">Selected work, told as stories. Each one taught me something about people,
+     problems, and the small details that make design feel right.</p>
+    </div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Fabiola Rivera -->
+    <a href="case-study-1" class="project-link">
+    <div class="project-card" data-project="fabiola">
+      <div class="project-visual">
+        <div class="project-glow"></div>
+        <div class="project-mockup">
+          <div class="mockup-fabiola">
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+            <div class="cell"></div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-num">01</div>
+        <div class="project-tags">
+          <span class="tag">Social media</span>
+          <span class="tag">Branding</span>
+          <span class="tag">Landing page</span>
+        </div>
+        <h3 class="project-title">Fabiola Psychologist</h3>
+        <div class="project-reveal">
+          <p class="project-desc">I've developed her landing page; and I completed her brand identity and social media design system for a personal brand. Visual strategy, content grid design, and cohesive aesthetic across digital platforms.</p>
+          <span class="project-arrow">
+            View case study
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+    <!-- Root Skills -->
+     <a href="case-study-2" class="project-link">
+    <div class="project-card" data-project="root">
+      <div class="project-visual">
+        <div class="project-glow"></div>
+        <div class="project-mockup">
+          <div class="mockup-root">
+            <div class="mockup-root-inner">
+              <div class="mr-bar"></div>
+              <div class="mr-icon"></div>
+              <div class="mr-lines">
+                <div class="mr-line"></div>
+                <div class="mr-line mr-line-short"></div>
+              </div>
+              <div class="mr-card">
+                <div class="mr-progress"><div class="mr-progress-bar"></div></div>
+                <div class="mr-line" style="height:4px; width:80%; background: rgba(240,198,29,0.3);"></div>
+              </div>
+              <div class="mr-lines">
+                <div class="mr-line"></div>
+                <div class="mr-line mr-line-short"></div>
+                <div class="mr-line"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-num">02</div>
+        <div class="project-tags">
+          <span class="tag">App Design</span>
+          <span class="tag">UX/UI</span>
+          <span class="tag">Onboarding</span>
+          <span class="tag">Master's Degree Final Project</span>
+        </div>
+        <h3 class="project-title">Root Skills</h3>
+        <div class="project-reveal">
+          <p class="project-desc">End-to-end UX and UI design of the onboarding experience for a skills-learning mobile app. User journey mapping, wireframing, and high-fidelity prototyping to reduce drop-off rates.</p>
+          <span class="project-arrow">
+            View Case Study
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+    </a>
+
+    <!-- UOC (featured) -->
+     <a href="case-study-3" class="project-link project-link">
+    <div class="project-card" data-project="uoc">
+      <div class="project-visual">
+        <div class="project-glow"></div>
+        <div class="project-mockup">
+          <div class="mockup-uoc">
+            <div class="mockup-uoc-bar">
+              <div class="uoc-dot"></div>
+              <div class="uoc-dot"></div>
+              <div class="uoc-dot"></div>
+              <div class="uoc-url"></div>
+            </div>
+            <div class="mockup-uoc-hero">
+              <div class="uoc-hero-text">
+                <div class="uoc-hero-line"></div>
+                <div class="uoc-hero-line small"></div>
+              </div>
+              <div class="uoc-hero-btn"></div>
+            </div>
+            <div class="mockup-uoc-body">
+              <div class="uoc-card-row">
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-num">03</div>
+        <div class="project-tags">
+          <span class="tag">Web to App</span>
+          <span class="tag">Education UX</span>
+          <span class="tag">Responsive</span>
+        </div>
+        <h3 class="project-title">UOC — Online University App</h3>
+        <div class="project-reveal">
+          <p class="project-desc">Adaptation and redesign of the UOC (Universitat Oberta de Catalunya) website into a mobile app experience. Focused on information architecture, accessibility, and creating a seamless academic journey for remote students.</p>
+          <span class="project-arrow">
+            View Case Study
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+      <!-- UOC (featured) -->
+     <a href="case-study-3" class="project-link project-link">
+    <div class="project-card" data-project="uoc">
+      <div class="project-visual">
+        <div class="project-glow"></div>
+        <div class="project-mockup">
+          <div class="mockup-uoc">
+            <div class="mockup-uoc-bar">
+              <div class="uoc-dot"></div>
+              <div class="uoc-dot"></div>
+              <div class="uoc-dot"></div>
+              <div class="uoc-url"></div>
+            </div>
+            <div class="mockup-uoc-hero">
+              <div class="uoc-hero-text">
+                <div class="uoc-hero-line"></div>
+                <div class="uoc-hero-line small"></div>
+              </div>
+              <div class="uoc-hero-btn"></div>
+            </div>
+            <div class="mockup-uoc-body">
+              <div class="uoc-card-row">
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+                <div class="uoc-mini-card">
+                  <div class="uoc-mc-bar gold"></div>
+                  <div class="uoc-mc-bar light"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-info">
+        <div class="project-num">03</div>
+        <div class="project-tags">
+          <span class="tag">Web to App</span>
+          <span class="tag">Education UX</span>
+          <span class="tag">Responsive</span>
+        </div>
+        <h3 class="project-title">UOC — Online University App</h3>
+        <div class="project-reveal">
+          <p class="project-desc">Adaptation and redesign of the UOC (Universitat Oberta de Catalunya) website into a mobile app experience. Focused on information architecture, accessibility, and creating a seamless academic journey for remote students.</p>
+          <span class="project-arrow">
+            View Case Study
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process" class="process-section">
+  <div class="section-label reveal">My Approach</div>
+  <h2 class="section-title reveal reveal-delay-1">Design<span style="color: var(--gold)"> process</span></h2>
+  <div class="section-process-desc reveal reveal-delay-2">
+  I follow a user-centered, iterative approach that balances research, creativity, and technical execution.
+  While I adapt to each project's constraints and goals, my work is grounded in these core phases that ensure quality and alignment. </div>
+  <div class="process-steps">
+    <div class="process-step reveal">
+      <div class="step-num">01</div>
+      <div class="step-line"></div>
+      <div class="step-card">
+        <h3 class="step-title">Discovery & research</h3>
+        <p class="step-desc">Deep research into users, context, and business goals. Interviews, surveys, and competitive analysis to uncover real problems.</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-1">
+      <div class="step-num">02</div>
+      <div class="step-line"></div>
+      <div class="step-card">
+        <h3 class="step-title">Strategy & definition</h3>
+        <p class="step-desc">Synthesizing findings into clear problem statements, personas, and user journeys that guide every design decision.</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-2">
+      <div class="step-num">03</div>
+      <div class="step-line"></div>
+      <div class="step-card">
+        <h3 class="step-title">Designing & prototyping</h3>
+        <p class="step-desc">From rough sketches to high-fidelity prototypes — iterating quickly, testing early, and refining based on feedback.</p>
+      </div>
+    </div>
+    <div class="process-step reveal reveal-delay-3">
+      <div class="step-num">04</div>
+      <div class="step-line"></div>
+      <div class="step-card">
+        <h3 class="step-title">Testing & handoff</h3>
+        <p class="step-desc">Polished handoff with design systems, specifications, and ongoing collaboration with developers to ensure quality execution.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-label reveal">Contact</div>
+  <h2 class="section-title reveal reveal-delay-1" style="text-align: center;">Let's create<br>something <span style="color: var(--gold)">remarkable!</span></h2>
+  <p class="contact-subtitle reveal reveal-delay-2">You could have been anywhere on the internet, yet you're here, so many thanks for visiting!<br>
+  Let's discover if I'm the right fit for your next hire.</p>
+  <a href="mailto:anarivera.designer@gmail.com" class="contact-email reveal reveal-delay-3">anarivera.designer@gmail.com</a>
+  <div class="social-links reveal reveal-delay-4">
+    <a href="#" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1。729v20。54２C０ ２３。２２７．７９２ ２４ １。７７１ ２４h２０。４５１C２３。２ ２４ ２４ ２３。２２７ ２４ ２２。２７１V１。７２９C２４ 。７７４ ２３。２ ０ ２２。２２２ ０h。００３z"/></svg>
+      LinkedIn
+    </a>
+    <a href="https://www.linkedin.com/in/ana-rivera-garcia/" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+      GitHub
+    </a>
+    <a href="#" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      Instagram
+    </a>
+    <a href="https://www.instagram.com/anabanana.ux/" class="social-link">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.665 0H5.335C2.387 0 0 2.387 0 5.335v13.33C0 21.613 2.387 24 5.335 24h13.33C21.613 24 24 21.613 24 18.665V5.335C24 2.387 21.613 0 18.665 0zM12 19.008c-3.866 0-7.008-3.142-7.008-7.008S8.134 4.992 12 4.992s7.008 3.142 7.008 7.008S15.866 19.008 12 19.008zm7.254-12.56a1.638 1.638 0 110-3.275 1.638 1.638 0 010 3.275zM12 7.008A4.992 4.992 0 1016.992 12 4.998 4.998 0 0012 7.008z"/></svg>
+      Behance
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p class="footer-copy">© 2026 Ana Rivera. All rights reserved.<br>Designed, built, and launched by Ana Rivera x Lagom Web Studio in 2026.</p>
+  <div class="footer-logo">
+    <img src="static/ana-logo-simplified.png" alt="Ana Rivera Logo">
+  </div>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const cursorRing = document.getElementById('cursorRing');
+let mouseX = 0, mouseY = 0;
+let ringX = 0, ringY = 0;
+
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
+
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  cursorRing.style.left = ringX + 'px';
+  cursorRing.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+// Hover effects on cursor
+document.querySelectorAll('a, button, .project-card, .skill-chip, .process-step').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '20px';
+    cursor.style.height = '20px';
+    cursorRing.style.width = '56px';
+    cursorRing.style.height = '56px';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '12px';
+    cursor.style.height = '12px';
+    cursorRing.style.width = '36px';
+    cursorRing.style.height = '36px';
+  });
+});
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1 });
+
+reveals.forEach(el => observer.observe(el));
+
+// Parallax on hero background
+window.addEventListener('scroll', () => {
+  const scrolled = window.scrollY;
+  const heroBg = document.querySelector('.hero-bg');
+  if (heroBg) {
+    heroBg.style.transform = `translateY(${scrolled * 0.3}px)`;
+  }
+});
+</script>
+</body>
+</html>
