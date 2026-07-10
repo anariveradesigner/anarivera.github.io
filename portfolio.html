@@ -345,12 +345,19 @@ body::after{
 }
 
 @media(max-width:1000px){
+  html,body{height:auto;min-height:100%;overflow-y:auto;}
+  .desktop{height:auto;min-height:100vh;overflow:visible;}
+  .desktop-icons{
+    position:static;
+    flex-direction:row;flex-wrap:wrap;justify-content:center;
+    width:80vw;margin:60px auto 0;gap:24px 18px;
+  }
   .hero{
     flex-direction:column;gap:24px;
     position:relative;
     top:auto;left:auto;transform:none;
     width:88vw;
-    margin:60px auto;
+    margin:24px auto 100px;
   }
   .photo-frame{width:100%;max-width:300px;}
   .hero-hi{font-size:40px;}
@@ -480,11 +487,76 @@ body::after{
 .winbody::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:10px;}
 
 @media(max-width:720px){
-  .desktop-icons{right:10px;gap:14px;}
-  .dicon{width:60px;}
-  .dicon .glyph{width:46px;height:46px;}
-  .window{width:92vw !important;left:4vw !important;}
+  html,body{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;}
+
+  /* menubar: drop the desktop-only menu items, keep it tidy */
+  .menu-item{display:none;}
+  .app-name{font-size:12px;}
+  .menubar{padding:0 10px;}
+
+  /* desktop icons: take them out of the fixed overlay so they can't
+     float on top of the hero, and lay them out as a row instead */
+  .desktop{height:auto;min-height:100vh;overflow:visible;padding-bottom:120px;}
+  .desktop-icons{
+    position:static;
+    flex-direction:row;flex-wrap:wrap;
+    justify-content:center;
+    width:92vw;margin:64px auto 0;
+    gap:22px 14px;
+  }
+  .dicon{width:64px;}
+  .dicon .glyph{width:50px;height:50px;}
+  .dicon span{font-size:11.5px;}
+
+  /* hero: already stacks via the 1000px query, just tighten sizes */
+  .hero{margin:24px auto 0;}
+  .hero-hi{font-size:30px;}
+  .hero-sub{font-size:13.5px;margin-top:26px;line-height:1.6;}
+
+  /* windows: near-fullscreen, anchored between menubar and dock,
+     with internal scrolling instead of getting clipped */
+  .window{
+    top:44px !important;left:3vw !important;right:3vw !important;
+    bottom:78px !important;width:auto !important;height:auto !important;
+    max-height:none !important;
+  }
+  .window .winbody,
+  .window .about-window-body,
+  .window .safari-content,
+  .window .photo-window-body{
+    flex:1 1 auto;min-height:0;height:100%;
+  }
+  .winbody{-webkit-overflow-scrolling:touch;}
+
+  /* About window: sidebar becomes a horizontal scrollable tab strip */
+  .about-window-body{flex-direction:column;}
+  .about-sidebar{
+    width:100%;flex-direction:row;align-items:center;
+    overflow-x:auto;gap:8px;padding:10px 12px;
+    border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);
+    flex-shrink:0;
+  }
+  .about-search{display:none;}
+  .about-sidebar-profile{flex-shrink:0;margin-bottom:0;}
+  .about-nav-item{flex-shrink:0;white-space:nowrap;}
+  .about-main{padding:16px 18px;}
   .about-grid{flex-direction:column;}
+  .interests-gallery{grid-template-columns:repeat(2,1fr);}
+
+  /* dock: slightly smaller so 5 icons breathe on narrow screens */
+  .dock{gap:8px;padding:8px 10px;}
+  .dock-item{width:46px;height:46px;border-radius:12px;}
+  .dock-sep{margin:8px 1px;}
+}
+
+@media(max-width:420px){
+  .hero-hi{font-size:25px;}
+  .hero-sub{font-size:12.5px;}
+  .dicon{width:56px;}
+  .dicon .glyph{width:44px;height:44px;}
+  .dicon span{font-size:11px;}
+  .window{top:38px !important;bottom:72px !important;}
+  .dock-item{width:42px;height:42px;}
 }
 
 /* dark theme fixes for Projects / Resume / Contact windows */
@@ -640,7 +712,7 @@ body::after{
 </div>
 
 <!-- PROJECTS WINDOW -->
-<div class="window" id="win-projects" style="top:110px;left:120px;width:460px;">
+<div class="window hidden" id="win-projects" style="top:110px;left:120px;width:460px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('projects')"></span><span class="dot yellow" onclick="closeWin('projects')"></span><span class="dot green"></span></div>
     <div class="wintitle">Projects</div>
@@ -677,7 +749,7 @@ body::after{
 </div>
 
 <!-- RESUME WINDOW -->
-<div class="window" id="win-resume" style="top:130px;left:520px;width:460px;">
+<div class="window hidden" id="win-resume" style="top:130px;left:520px;width:460px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('resume')"></span><span class="dot yellow" onclick="closeWin('resume')"></span><span class="dot green"></span></div>
     <div class="wintitle">resume.pdf</div>
@@ -694,7 +766,7 @@ body::after{
 </div>
 
 <!-----ABOUT WINDOW-->
-  <div class="window" id="win-about" style="top:80px;left:400px;width:760px;height:490px;">
+  <div class="window hidden" id="win-about" style="top:80px;left:400px;width:760px;height:490px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('about')"></span><span class="dot yellow" onclick="closeWin('about')"></span><span class="dot green"></span></div>
     <div class="wintitle">About me</div>
@@ -869,7 +941,7 @@ body::after{
         <li>Created interactive activities and materials to boost engagement.</li>
       </ul>
     </div>
-    <p class="about-main-bio" style="opacity:.6; margin-bottom:20px;">Read more details on my <a href="static/ana-rivera-cv.pdf" target="_blank" style="color:#89acbd; text-decoration:underline;">CV!</a></p>
+    <p class="about-main-bio" style="opacity:.6; margin-bottom:20px;">Read more details on my <a href="static/cv-ana-rivera.pdf" target="_blank" style="color:#89acbd; text-decoration:underline;">CV!</a></p>
   </div>
   
   <div class="about-section hidden" id="section-interests">
@@ -910,7 +982,7 @@ body::after{
 
 
 <!-- CONTACT WINDOW -->
-<div class="window" id="win-contact" style="top:160px;left:340px;width:420px;">
+<div class="window hidden" id="win-contact" style="top:160px;left:340px;width:420px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('contact')"></span><span class="dot yellow" onclick="closeWin('contact')"></span><span class="dot green"></span></div>
     <div class="wintitle">Contact</div>
@@ -938,7 +1010,7 @@ body::after{
 </div>
 
 <!-- SAFARI WINDOW -->
-<div class="window" id="win-safari" style="top:70px;left:200px;width:640px;height:460px;">
+<div class="window hidden" id="win-safari" style="top:70px;left:200px;width:640px;height:460px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('safari')"></span><span class="dot yellow" onclick="closeWin('safari')"></span><span class="dot green"></span></div>
     <div class="safari-tabs">
@@ -964,7 +1036,7 @@ body::after{
 </div>
 
 <!-- PHOTO VIEWER WINDOW -->
-<div class="window photo-window" id="win-photo" style="top:60px;left:260px;width:420px;">
+<div class="window photo-window hidden" id="win-photo" style="top:60px;left:260px;width:420px;">
   <div class="titlebar" data-drag>
     <div class="traffic"><span class="dot red" onclick="closeWin('photo')"></span><span class="dot yellow" onclick="closeWin('photo')"></span><span class="dot green"></span></div>
     <div class="wintitle" id="photoWinFilename">photo.jpg</div>
