@@ -407,7 +407,7 @@ section {
 }
 
 .overview-block:hover {
-  background: rgba(209, 185, 80, 0.247);
+  background: #6a8b4c38;
 }
 
 .overview-block h3 {
@@ -423,14 +423,14 @@ section {
   font-size: 0.95rem;
   font-weight: 300;
   line-height: 1.7;
-  color: rgba(97, 80, 85, 0.75);
+  color: rgb(65, 55, 58);
 }
 
 #features {
-  padding: 80px 5vw 80px;
+  padding: 80px 5vw 80px; align-content: center;
 }
 #features .section-title {
-  margin-bottom: 40px;
+  margin-bottom: 40px; align-content: center;
 }
 
 /* KEY FEATURES — old carousel rules removed, replaced by .feature-row styles below */
@@ -438,26 +438,11 @@ section {
 /* KEY FEATURES — TWO COLUMN ROWS */
 .features-rows {
   display: flex;
-  flex-direction: column;
   width: 100%;
   max-width: 1180px;
   margin: 0 auto;
 }
 
-.feature-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 64px;
-  align-items: center;
-  padding: 64px 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.feature-row:first-child { padding-top: 16px; }
-.feature-row:last-child { border-bottom: none; padding-bottom: 16px; }
-
-.feature-row.reverse .feature-row-media { order: 2; }
-.feature-row.reverse .feature-row-content { order: 1; }
 
 /* Browser / desktop mockup */
 .browser-mockup {
@@ -715,7 +700,7 @@ section {
   height: 88px;
   border-radius: 60%;
   object-fit: cover;
-  border: 2px solid var(--dark-brown); /* Creates a clean slice illusion between them */
+  border: 2px solid #359979; /* Creates a clean slice illusion between them */
   background: var(--orange); /* Brand background color fallback */
 }
 
@@ -994,12 +979,6 @@ footer {
     <span data-i18n="nav_back">Back to projects</span>
   </a>
   <div class="nav-right">
-    <ul class="nav-links">
-      <li><a data-i18n="nav_about" href="#about">About</a></li>
-      <li><a data-i18n="nav_work" href="#work">Work</a></li>
-      <li><a data-i18n="nav_process" href="#process">Process</a></li>
-      <li><a data-i18n="nav_contact" href="#contact">Contact</a></li>
-    </ul>
     <div class="lang-switch" id="langSwitch">
       <button type="button" class="lang-btn active" data-lang="en">EN</button>
       <button type="button" class="lang-btn" data-lang="es">ES</button>
@@ -1011,7 +990,7 @@ footer {
 <section class="hero" id="home">
   <div class="hero-content">
   <div class="hero-title">
-    <h1><span class="agro">Agro</span><span class="commodities">Commodities</span></h1>
+    <h1 data-i18n="hero_title"><span class="agro">Agro</span><span class="commodities">Commodities</span></h1>
   </div>
     <p style="text-transform: uppercase; font-weight: 400" data-i18n="hero_badge">A website built to serve every kind of visitor: producer, buyer, or partner.</p>
     <p class="hero-desc" style="margin-top: 20px" data-i18n="hero_desc">
@@ -1026,7 +1005,7 @@ footer {
   </div>
 
   <div class="hero-image">
-    <img src="static/laptop-mockup-agrocommodities.png" alt="CRM Laptop Mockup">
+    <img src="static/lagom-img/laptop-mockup-agrocommodities.png" alt="AgroCommodities Laptop Mockup">
   </div>
 </section>
 
@@ -1067,209 +1046,41 @@ footer {
     
     <div class="overview-block reveal reveal-delay-1">
       <h3 data-i18n="overview_challenge_title">The challenge 🎯</h3>
-      <p data-i18n="overview_challenge_desc">The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines (logistics, foreign trade, contract manufacturing, productive projects) and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.</p>
+      <p data-i18n="overview_challenge_desc">The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines, and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.</p>
     </div>
     
     <div class="overview-block reveal reveal-delay-2">
       <h3 data-i18n="overview_solution_title">The solution 💡</h3>
-      <p data-i18n="overview_solution_desc">A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog (from tomato paste and oils to industrial packaging) in a browsable, visually organized way, with a direct contact flow via WhatsApp and email.
+      <p data-i18n="overview_solution_desc">A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog in a browsable, visually organized way, with a direct contact flow.
       </p>
     </div>
   </div>
 </section>
 
-<!-- KEY FEATURES & TECHNOLOGIES -->
-<section id="features" style="background: #8cb36931;">
+<!-- KEY FEATURES -->
+<section id="features" style="background: #8cb36931; text-align: center;">
   <div class="section-label reveal" data-i18n="features_label">Key features</div>
   <h2 class="section-title reveal reveal-delay-1" data-i18n="features_title">The product we built</h2>
 
-  <div class="features-rows">
+  <!-- Placeholder del párrafo de ~4 líneas -->
+  <p class="reveal reveal-delay-2" style="max-width: 760px; margin: 0 auto 60px; font-size: 1.05rem; font-weight: 300; line-height: 1.7; color: rgba(97, 80, 85, 0.75);" data-i18n="producto_desc">
+  The website was structured around two distinct yet connected user journeys: one for the product catalog and another for services. A unified visual system and direct contact through WhatsApp and email create a seamless experience, making it easy for users to explore, connect, and convert.</p>
 
-    <!-- FEATURE 01 — image left, text right -->
-    <div class="feature-row reveal">
-      <div class="feature-row-media">
-        <div class="browser-mockup">
-          <div class="browser-topbar">
-            <span class="browser-dot red"></span>
-            <span class="browser-dot yellow"></span>
-            <span class="browser-dot green"></span>
-            <span class="browser-url">www.agrocommodities.com.mx</span>
-          </div>
-          <div class="browser-body">
-            <img src="static/feature-catalog.gif" alt="Product Catalog Mockup">
-            <span class="browser-tag">Catalog</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-row-content">
-        <div class="feature-meta">
-          <span class="feature-num-label">01</span>
-          <span class="feature-meta-line"></span>
-          <span class="feature-tag-pill" data-i18n="feat1_tag">Catalog</span>
-        </div>
-        <h3 data-i18n="feat1_title">Product catalog</h3>
-        <p class="feature-subtitle" data-i18n="feat1_subtitle">All your products and services in one place</p>
-        <p class="feature-desc" data-i18n="feat1_desc">A navigation system with a category carousel that lets users explore multiple products without feeling overwhelmed, with visual product cards for each item.</p>
-      </div>
+  <!-- Placeholder de la imagen larga -->
+<div class="reveal reveal-delay-3" style="width: 100%; max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 60px; padding: 0 20px; box-sizing: border-box;">
+    
+    <div style="align-self: flex-start; width: 100%; max-width: 700px;">
+      <img src="static/lagom-img/pantalla1.png" alt="Imagen superior" style="width: 100%; height: auto; display: block; border-radius: 12px;">
     </div>
 
-    <!-- FEATURE 02 — text left, image right -->
-    <div class="feature-row reverse reveal">
-      <div class="feature-row-media">
-        <div class="browser-mockup">
-          <div class="browser-topbar">
-            <span class="browser-dot red"></span>
-            <span class="browser-dot yellow"></span>
-            <span class="browser-dot green"></span>
-            <span class="browser-url">www.agrocommodities.com.mx</span>
-          </div>
-          <div class="browser-body">
-            <img src="static/feature-instant.gif" alt="Instant property publishing mockup">
-            <span class="browser-tag" data-i18n="feat2_browsertag">Listings</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-row-content">
-        <div class="feature-meta">
-          <span class="feature-num-label">02</span>
-          <span class="feature-meta-line"></span>
-          <span class="feature-tag-pill" data-i18n="feat2_tag">Listings</span>
-        </div>
-        <h3 data-i18n="feat2_title">Instant property publishing</h3>
-        <p class="feature-subtitle" data-i18n="feat2_subtitle">From the CRM to your website, in one click</p>
-        <p class="feature-desc" data-i18n="feat2_desc">Create a property directly from the CRM and instantly generate its own dedicated page on the website no developer needed, no manual upload, no duplication.</p>
-        <ul class="feature-points">
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat2_point1">Individual listing pages generated straight from the CRM</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat2_point2">Full content included: images, details, and contact info</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat2_point3">Publish or unpublish with a single button: no tech knowledge required</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat2_point4">Less dependency on developers means lower ongoing maintenance fees</span>
-          </li>
-          </ul>
-      </div>
+    <div style="align-self: flex-end; width: 100%; max-width: 700px;">
+      <img src="static/lagom-img/pantalla0.png" alt="Imagen inferior" style="width: 100%; height: auto; display: block; border-radius: 12px;">
     </div>
-
-    <!-- FEATURE 03 — image left, text right -->
-    <div class="feature-row reveal">
-      <div class="feature-row-media">
-        <div class="browser-mockup">
-          <div class="browser-topbar">
-            <span class="browser-dot red"></span>
-            <span class="browser-dot yellow"></span>
-            <span class="browser-dot green"></span>
-            <span class="browser-url">www.agrocommodities.com.mx</span>
-          </div>
-          <div class="browser-body">
-            <img src="static/feature-doc.gif" alt="Document generator mockup">
-            <span class="browser-tag" data-i18n="feat3_browsertag">DOCUMENT GENERATOR</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-row-content">
-        <div class="feature-meta">
-          <span class="feature-num-label">03</span>
-          <span class="feature-meta-line"></span>
-          <span class="feature-tag-pill" data-i18n="feat3_tag">Documents</span>
-        </div>
-        <h3 data-i18n="feat3_title">Document &amp; contract generator</h3>
-        <p class="feature-subtitle" data-i18n="feat3_subtitle">Legal docs in seconds, not hours</p>
-        <p class="feature-desc" data-i18n="feat3_desc">Generate contracts, agreements, and property documents instantly using smart templates. Ready to use, ready to download.</p>
-        <ul class="feature-points">
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat3_point1">Pre-filled templates from existing property data</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat3_point2">PDF export ready to send or print</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat3_point3">Reduce administrative time and human error</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
-    <!-- FEATURE 04 — text left, image right -->
-    <div class="feature-row reverse reveal">
-      <div class="feature-row-media">
-        <div class="browser-mockup">
-          <div class="browser-topbar">
-            <span class="browser-dot red"></span>
-            <span class="browser-dot yellow"></span>
-            <span class="browser-dot green"></span>
-            <span class="browser-url">www.agrocommodities.com.mx</span>
-          </div>
-          <div class="browser-body">
-            <img src="static/feature-calendar.gif" alt="Scheduler mockup">
-            <span class="browser-tag" data-i18n="feat4_browsertag">Scheduler</span>
-          </div>
-        </div>
-      </div>
-      <div class="feature-row-content">
-        <div class="feature-meta">
-          <span class="feature-num-label">04</span>
-          <span class="feature-meta-line"></span>
-          <span class="feature-tag-pill" data-i18n="feat4_tag">Scheduler</span>
-        </div>
-        <h3 data-i18n="feat4_title">Property viewing scheduler</h3>
-        <p class="feature-subtitle" data-i18n="feat4_subtitle">Bookings that sync with your team</p>
-        <p class="feature-desc" data-i18n="feat4_desc">Allow clients to book property visits online while keeping every appointment synchronized: no double bookings, no missed calls.</p>
-        <ul class="feature-points">
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat4_point1">Online booking from public listing pages</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat4_point2">Keep your calendar up to date with automatic booking</span>
-          </li>
-          <li>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-            <span data-i18n="feat4_point3">Automatic confirmation emails to clients</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-
+    
   </div>
+
 </section>
     
-
-
-<!-- GALLERY SECTION -->
-<section id="gallery">
-  <div class="section-label reveal" data-i18n="gallery_label">Visuals</div>
-  <h2 class="section-title reveal reveal-delay-1" data-i18n="gallery_title">Project gallery</h2>
-  
-  <div class="gallery-grid">
-    <div class="placeholder-img img-main reveal">
-      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg>
-      <span data-i18n="gallery_ph1">[ CRM Dashboard & Desktop Showcase Mockup Placeholder ]</span>
-    </div>
-    <div class="gallery-thumb-stack">
-      <div class="placeholder-img img-side reveal reveal-delay-1">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></svg>
-        <span data-i18n="gallery_ph2">[ Mobile Responsive Screenshot ]</span>
-      </div>
-      <div class="placeholder-img img-side reveal reveal-delay-2">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-        <span data-i18n="gallery_ph3">[ Contract Builder Interface Mockup ]</span>
-      </div>
-    </div>
-  </div>
-</section>
 
 <section id="testimonials">
   <div class="section-label reveal" data-i18n="test_label">Testimonials</div>
@@ -1282,18 +1093,15 @@ footer {
     <div class="native-testimonial-card">
       
       <p class="testimonial-quote" data-i18n="test_quote">
-        "The new platform has significantly improved the way we manage our properties and daily operations. Having everything centralized in one place has helped our team work more efficiently while providing a better experience for our clients.<br><br>
-        We're very happy with the results and excited to continue growing with this solution."
+       "From the beginning, it felt like a real collaboration. They understood what we were trying to achieve and turned it into a website that’s clean, easy to use, and feels true to our brand. We’ve had great feedback from both customers and our team."
       </p>
-      
-      <div class="testimonial-profile">
+            <div class="testimonial-profile">
         <div class="avatar-group">
-          <img src="static/irma-avatar.png" alt="Irma M." class="profile-avatar">
-          <img src="static/pepe-avatar.png" alt="José C." class="profile-avatar">
+          <img src="static/lagom-img/jose-avatar.png" alt="José C." class="profile-avatar">
         </div>
         
-        <h4 class="profile-name" data-i18n="test_name">IRMA M. Y JOSÉ C.</h4>
-        <p class="profile-role" data-i18n="test_role">Founders of Propiedades Mendoza Curi</p>
+        <h4 class="profile-name" data-i18n="test_name">PEPE C.</h4>
+        <p class="profile-role" data-i18n="test_role">Founder of Propiedades Mendoza Curi</p>
       </div>
 
     </div>
@@ -1335,10 +1143,6 @@ footer {
 
       <li class="tech-chip">
           <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg" />
-      </li>
-
-      <li class="tech-chip">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" />
       </li>
 
       <li class="tech-chip">
@@ -1439,24 +1243,24 @@ const translations = {
 
 
     // Hero
-    hero_title: 'Propiedades<br><span style="color: var(--orange)">Mendoza Curi</span>',
-    hero_badge: "From one property entry to a fully operational listing",
+    hero_title: '<span class="agro">Agro</span><span class="commodities">Commodities</span>',
+    hero_badge: "A website built to serve every kind of visitor: <br>producer, buyer, or partner.",
     hero_btn_visit: "Visit Website",
-    hero_desc: "This real estate website is much more than an online catalog.<br>A digital ecosystem designed to streamline property management, automate listings, and improve agent productivity.",
+    hero_desc: "Structuring complexity: a B2B catalog site for Mexico's agro-industry.<br>A digital ecosystem designed to streamline product and services management, and improve brand online presence.",
 
 
     // Overview / About
     overview_label: "Overview",
     overview_title: "About the project",
-    overview_desc: "Propiedades Mendoza Curi is a modern web ecosystem built to scale real estate operations. By blending advanced front-end interactions with a robust back-end, this platform transforms how properties are managed, tracked, and showcased.",
 
 
     // Testimonials
     test_label: "Testimonials",
     test_title: "What our client said",
-    test_role: "Founders of Propiedades Mendoza Curi",
+    test_name: "PEPE CURIEL",
+    test_role: "Founder of AgroCommodities",
     test_desc: "Here you can know the opinion of our client about the project, the process, and the final product.",
-    test_quote: "The new platform has significantly improved the way we manage our properties and daily operations.\n\nHaving everything centralized in one place has helped our team work more efficiently while providing a better experience for our clients.<br><br>We're very happy with the results and excited to continue growing with this solution.",
+    test_quote: "From the beginning, it felt like a real collaboration. They understood what we were trying to achieve and turned it into a website that’s clean, easy to use, and feels true to our brand. We’ve had great feedback from both customers and our team.",
 
     // Nav and subnav
     nav_back: "Back to projects",
@@ -1465,57 +1269,29 @@ const translations = {
     subnav_tools: "Tools",
     subnav_testimonials: "Testimonials",
 
+    // Gallery section
+    gallery_label: "Visuals",
+    gallery_title: "Project gallery",
+    gallery_ph1: "[ CRM Dashboard & Desktop Showcase Mockup Placeholder ]",
+    gallery_ph2: "[ Mobile Responsive Screenshot ]",
+    gallery_ph3: "[ Contract Builder Interface Mockup ]",
+
     // Overview section
     overview_client_title: "The client 🔎",
     overview_client_desc:
       "AgroCommodities needed something different: a platform capable of supporting the entire operation of a growing agro-industry business while delivering a premium experience to producers, buyers, and partners.",
 
     overview_challenge_title: "The challenge 🎯",
-    overview_challenge_desc: "The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines (logistics, foreign trade, contract manufacturing, productive projects) and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.",
+    overview_challenge_desc: "The main challenge was organizing AgroCommodities' wide range of information: multiple B2B service lines, and a highly diverse product catalog into a clear, coherent web experience, without overwhelming or confusing users with very different needs.",
 
     overview_solution_title: "The solution 💡",
-    overview_solution_desc: "A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog (from tomato paste and oils to industrial packaging) in a browsable, visually organized way, with a direct contact flow via WhatsApp and email.",
+    overview_solution_desc: "A corporate website that clearly communicates AgroCommodities' business model and services: representation, logistics, contract manufacturing (maquila), and productive project development. The website presents its product catalog in a browsable, visually organized way, with a direct contact flow.",
 
     // Key features section
     features_label: "Key features",
     features_title: "The product we built",
 
-    feat1_tag: "Catalog",
-    feat1_browsertag: "Product Catalog",
-    feat1_title: "Visual product catalog",
-    feat1_subtitle: "Explore products in a browsable interface",
-    feat1_desc:
-      "A navigation system with a category carousel that lets users explore multiple products without feeling overwhelmed, with visual product cards for each item.",
-
-    feat2_tag: "Listings",
-    feat2_browsertag: "Listings",
-    feat2_title: "Instant property publishing",
-    feat2_subtitle: "From the CRM to your website, in one click",
-    feat2_desc: "Create a property directly from the CRM and instantly generate its own dedicated page on the website no developer needed, no manual upload, no duplication.",
-    feat2_point1: "Individual listing pages generated straight from the CRM",
-    feat2_point2: "Full content included: images, details, and contact info",
-    feat2_point3: "Publish or unpublish with a single button: no tech knowledge required",
-    feat2_point4: "Less dependency on developers means lower ongoing maintenance fees",
-
-    feat3_tag: "Documents",
-    feat3_browsertag: "Document Generator",
-    feat3_title: "Document & contract generator",
-    feat3_subtitle: "Legal docs in seconds, not hours",
-    feat3_desc: "Generate contracts, agreements, and property documents instantly using smart templates. Ready to use, ready to download.",
-    feat3_point1: "Pre-filled templates from existing property data",
-    feat3_point2: "PDF export ready to send or print",
-    feat3_point3: "Reduce administrative time and human error",
-
-    feat4_tag: "Scheduler",
-    feat4_browsertag: "Scheduler",
-    feat4_title: "Property viewing scheduler",
-    feat4_subtitle: "Bookings that sync with your team",
-    feat4_desc: "Allow clients to book property visits online while keeping every appointment synchronized: no double bookings, no missed calls.",
-    feat4_point1: "Online booking from public listing pages",
-    feat4_point2: "Keep your calendar up to date with automatic booking",
-    feat4_point3: "Automatic confirmation emails to clients",
-    feat4_point4: "Reduce administrative time and human error",
-    feat4_point5: "Less dependency on developers means lower ongoing maintenance fees",
+    producto_desc: "The website was structured around two distinct yet connected user journeys: one for the product catalog and another for services. A unified visual system and direct contact through WhatsApp and email create a seamless experience, making it easy for users to explore, connect, and convert.",
 
 
     //contact section
@@ -1539,24 +1315,24 @@ const translations = {
 
 
     // Hero
-    hero_title: 'Propiedades<br><span style="color: var(--orange)">Mendoza Curi</span>',
-    hero_badge: "De una simple propiedad a un catálogo completamente operativo",
+    hero_title: '<span class="agro">Agro</span><span class="commodities">Commodities</span>',
+    hero_badge: "Un sitio web construido para atender a cada tipo de visitante: <br>productor, comprador o socio.",
     hero_btn_visit: "Visitar sitio web",
-    hero_desc: "Este sitio web inmobiliario es mucho más que un catálogo en línea.<br>Un ecosistema digital diseñado para optimizar la gestión de propiedades, automatizar listados y mejorar la productividad de los agentes.",
+    hero_desc: "Estructurando la complejidad: un sitio catálogo B2B para la agroindustria mexicana.<br>Un ecosistema digital diseñado para optimizar la gestión de productos y servicios, y mejorar la presencia de marca en línea.",
     
     
     // Overview / About
     overview_label: "Resumen",
     overview_title: "Sobre el proyecto",
-    overview_desc: "Propiedades Mendoza Curi es un ecosistema web moderno diseñado para escalar operaciones inmobiliarias. Al combinar interacciones front-end avanzadas con un back-end robusto, esta plataforma transforma la forma en que se gestionan, rastrean y muestran las propiedades.",
     
     
     // Testimonials
     test_label: "Opiniones",
     test_title: "Lo que dice nuestro cliente",
-    test_role: "Fundadores de Propiedades Mendoza Curi",
+    test_name: "PEPE CURIEL",
+    test_role: "Fundador de AgroCommodities",
     test_desc: "Aquí puedes conocer la opinión de nuestro cliente sobre el proyecto, el proceso y el producto final.",
-    test_quote: "La nueva plataforma ha mejorado significativamente la forma en que gestionamos nuestras propiedades y operaciones diarias.<br><br>Tener todo centralizado en un solo lugar ha ayudado a nuestro equipo a trabajar de manera más eficiente, al mismo tiempo que ofrece una mejor experiencia a nuestros clientes. Estamos muy contentos con los resultados y entusiasmados de seguir creciendo con esta solución.",
+    test_quote: "Desde el principio, se sintió como una verdadera colaboración. Entendieron lo que queríamos lograr y lo transformaron en un sitio web limpio, fácil de usar y que refleja fielmente nuestra marca. Hemos recibido excelentes comentarios tanto de los clientes como de nuestro equipo.",
   
     // Nav and subnav
     nav_back: "Volver a proyectos",
@@ -1565,59 +1341,30 @@ const translations = {
     subnav_tools: "Herramientas",
     subnav_testimonials: "Opiniones",
 
+    // Gallery section
+    gallery_label: "Visuales",
+    gallery_title: "Galería del proyecto",
+    gallery_ph1: "[ Panel CRM y Vista de Escritorio – Mockup Placeholder ]",
+    gallery_ph2: "[ Captura Responsiva para Móvil ]",
+    gallery_ph3: "[ Interfaz del Generador de Contratos – Mockup ]",
+
     // Overview section
     overview_client_title: "Cliente 🔎",
     overview_client_desc:
-      "Propiedades Mendoza Curi necesitaba algo diferente: una plataforma capaz de respaldar toda la operación de un negocio inmobiliario en crecimiento y ofrecer una experiencia premium a compradores y vendedores.",
+      "AgroCommodities necesitaba algo diferente: una plataforma capaz de respaldar toda la operación de un negocio agroindustrial en crecimiento, ofreciendo una experiencia premium a productores, compradores y socios comerciales.",
 
     overview_challenge_title: "Desafío 🎯",
     overview_challenge_desc:
-      "Gestionar grandes cantidades de propiedades se volvió cada vez más ineficiente. Publicar anuncios, actualizar información, organizar documentos y generar contratos requería múltiples procesos manuales que consumían tiempo valioso y ralentizaban las operaciones diarias.",
+      "El principal desafío era organizar la amplia gama de información de AgroCommodities: múltiples líneas de servicio B2B (logística, comercio exterior, maquila, proyectos productivos) y un catálogo de productos muy diverso, en una experiencia web clara y coherente, sin abrumar ni confundir a usuarios con necesidades muy distintas.",
 
     overview_solution_title: "Solución 💡",
     overview_solution_desc:
-      "Construimos una plataforma completamente personalizada, diseñada para mejorar el flujo de trabajo de la empresa. Gracias a un CRM integrado, los agentes pueden gestionar propiedades, subir imágenes y documentación, generar contratos y publicar anuncios desde un panel centralizado. Cada propiedad genera automáticamente su propia página.",
+      "Un sitio web corporativo que comunica con claridad el modelo de negocio y los servicios de AgroCommodities: representación, logística, maquila y desarrollo de proyectos productivos. El sitio presenta su catálogo de productos de forma navegable y visualmente organizada, con un flujo de contacto directo.",
 
     // Key features section
     features_label: "Características destacadas",
     features_title: "El producto que construimos",
-
-
-    feat1_title: "Espacio de trabajo CRM centralizado",
-    feat1_subtitle: "Todas tus operaciones en un solo lugar",
-    feat1_desc:
-      "Gestiona propiedades, clientes, documentos y fotografías desde una única plataforma diseñada para el equipo de Mendoza Curi. Se acabó saltar entre herramientas.",
-    feat1_point1: "Panel unificado para propiedades y clientes",
-    feat1_point2: "Actualiza información rápidamente",
-    feat1_point3: "Funciones según el rol de cada miembro del equipo",
-
-    feat2_tag: "Catálogo",
-    feat2_browsertag: "Catálogo",
-    feat2_title: "Publicación instantánea de propiedades",
-    feat2_subtitle: "Desde el CRM hasta tu sitio web, en un solo clic",
-    feat2_desc: "Crea una propiedad directamente desde el CRM y genera instantáneamente su propia página dedicada en el sitio web sin necesidad de desarrolladores, sin carga manual y sin duplicación.",
-    feat2_point1: "Páginas de listado individuales generadas directamente desde el CRM",
-    feat2_point2: "Contenido completo incluido: imágenes, detalles y información de contacto",
-    feat2_point3: "Publica o elimina propiedades con un solo botón: no se requiere conocimiento técnico",
-    feat2_point4: "Menor dependencia de desarrolladores = menores costos de mantenimiento continuo",
-
-    feat3_tag: "Documentos",
-    feat3_browsertag: "Generador de documentos",
-    feat3_title: "Generador de documentos y contratos",
-    feat3_subtitle: "Documentos legales en segundos, no en horas",
-    feat3_desc: "Genera contratos, acuerdos y documentos de propiedad instantáneamente usando plantillas inteligentes. Listo para usar, listo para descargar.",
-    feat3_point1: "Plantillas prellenadas con datos de propiedad existentes",
-    feat3_point2: "Exportación a PDF lista para enviar o imprimir",
-    feat3_point3: "Reduce la carga administrativa y el error humano",
-    
-    feat4_tag: "Calendario",
-    feat4_browsertag: "Calendario",
-    feat4_title: "Programador de visitas a propiedades",
-    feat4_subtitle: "Reservas que se sincronizan con tu equipo",
-    feat4_desc: "Permite a los clientes reservar visitas a propiedades en línea mientras mantiene todas las citas sincronizadas: sin reservas dobles, sin llamadas perdidas.",
-    feat4_point1: "Reservas en línea desde páginas de listado público",
-    feat4_point2: "Mantén tu calendario actualizado con reservas automáticas",
-    feat4_point3: "Correos de confirmación automáticos a los clientes",
+    producto_desc: "El sitio web se estructuró en torno a dos recorridos de usuario distintos pero conectados: uno para el catálogo de productos y otro para los servicios. Un sistema visual unificado y la comunicación directa a través de WhatsApp y correo electrónico crean una experiencia fluida, facilitando a los usuarios la exploración, la conexión y la conversión.",
 
     //contact section
     cta_label: "Contáctanos",
