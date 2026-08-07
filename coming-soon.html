@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Coming soon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=League+Spartan:wght@200;300;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #303030;
+    --fg: #FEFEFD;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    background-color: var(--bg);
+  }
+
+  .coming-soon {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'League Spartan', sans-serif;
+    color: var(--fg);
+    padding: 8vh 8vw;
+  }
+
+  .content {
+    max-width: 620px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    opacity: 0;
+    transform: translateY(12px);
+    animation: rise 0.7s ease-out forwards;
+  }
+
+  .eyebrow {
+    font-weight: 300;
+    font-size: clamp(12px, 1.4vw, 14px);
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(254, 254, 253, 0.55);
+    margin-bottom: 22px;
+  }
+
+  .rule {
+    width: 48px;
+    height: 2px;
+    background: var(--fg);
+    margin-bottom: 22px;
+  }
+
+  .title {
+    font-weight: 800;
+    font-size: clamp(34px, 5vw, 56px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 0 0 28px 0;
+  }
+
+  .title .emoji {
+    display: inline-block;
+    margin-left: 4px;
+  }
+
+  .subtitle {
+    font-weight: 200;
+    font-size: clamp(18px, 2.2vw, 24px);
+    line-height: 1.5;
+    color: rgba(254, 254, 253, 0.85);
+    margin: 0 0 8px 0;
+    max-width: 600px;
+  }
+
+  .links-intro {
+    font-weight: 200;
+    font-size: clamp(14px, 1.6vw, 16px);
+    line-height: 1.5;
+    color: rgba(254, 254, 253, 0.55);
+    margin: 60px 0 18px 0;
+    max-width: 420px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: grid;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .links a {
+    position: relative;
+    color: var(--fg);
+    text-decoration: none;
+    font-weight: 300;
+    font-size: clamp(15px, 1.8vw, 18px);
+    letter-spacing: 0.02em;
+    padding-bottom: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: var(--fg);
+    transform: scaleX(0.3);
+    transform-origin: right;
+    opacity: 0.4;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+  }
+
+  .links a:hover::after {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+
+  .links a .arrow {
+    transition: transform 0.35s ease;
+    font-size: 0.85em;
+  }
+
+  .links a:hover .arrow {
+    transform: translate(2px, -2px);
+  }
+
+  /* ---------- TOP BAR ---------- */
+.topbar{
+  position:sticky;top:0;left:0;right:0;height:52px;z-index:200;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 26px;
+  background:rgba(77, 77, 77, 0.219);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+  color:rgba(255, 255, 255, 0.705);text-decoration:none;
+}
+.back-link:hover{color:#adadadbd;}
+.topbar-title{
+  font-family:'Inter',sans-serif;font-size:14px;font-weight:500;
+  color:rgba(226, 226, 226, 0.4);
+}
+
+  @keyframes rise {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .content { animation: none; opacity: 1; transform: none; }
+    .links a::after, .links a .arrow { transition: none; }
+  }
+
+  @media (max-width: 640px) {
+    .coming-soon {
+      justify-content: center;
+      padding: 10vh 8vw;
+    }
+    .content {
+      text-align: center;
+      align-items: center;
+      max-width: 100%;
+    }
+    .links-intro { max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+  <div class="topbar">
+  <a href="portfolio.html#projects" class="back-link">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back to projects</a>
+</div>
+
+  <div class="coming-soon">
+    <div class="content">
+      <div class="eyebrow">Status update</div>
+      <div class="rule"></div>
+      <div class="title">Case study<br>coming soon!<span class="emoji">🚧</span></div>
+      <br><br>
+      <div class="subtitle">This one's still cooking, but the site's already live!</div>
+      <div class="subtitle">While I write up the full process, <strong>take a look at the real thing:</strong></div>
+      <div class="links">
+        <a href="https://www.instagram.com/psic.fabiolarivera" target="_blank">Social media <span class="arrow">↗</span></a>
+        <a href="https://fabiola-rivera.com/" target="_blank">Landing page <span class="arrow">↗</span></a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
