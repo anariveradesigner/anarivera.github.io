@@ -127,6 +127,18 @@ body::after{
   color:rgba(255,255,255,0.7);max-width:60ch;
 }
 
+.case-intro a {
+  color: #e1e2e2ee;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.case-intro a:hover {
+  color: #bd433296;
+  text-decoration: underline;
+}
+
 /* ---------- HERO MEDIA ---------- */
 .hero-media{
   margin:36px 0 28px;
@@ -199,7 +211,7 @@ body::after{
 }
 
 /* ---------- SECTIONS ---------- */
-.case-section{padding:64px 0;border-top:1px solid var(--line);}
+.case-section{padding:32px 0;border-top:1px solid var(--line);}
 .case-section:first-of-type{border-top:none;padding-top:0;}
 .section-eyebrow{
   font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;
@@ -225,6 +237,18 @@ body::after{
 .section-image img{width:100%;display:block;}
 .section-caption{
   font-size:12px;color:rgba(255,255,255,0.4);margin-top:10px;font-style: italic;
+}
+
+.section-caption a {
+  color: #e1e2e2ee;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.section-caption a:hover {
+  color: rgba(189, 67, 50, 0.588);
+  text-decoration: underline;
 }
 
 /* ---------- ARTIFACT FOLDERS ---------- */
@@ -265,7 +289,7 @@ body::after{
 .gallery-overlay.open{opacity:1;pointer-events:auto;}
 .gallery-window{
   width:100%;max-width:820px;max-height:86vh;
-  background:#232023;border-radius:12px;overflow:hidden;
+  background:#161616;border-radius:12px;overflow:hidden;
   box-shadow:0 30px 70px rgba(0,0,0,0.5);
   display:flex;flex-direction:column;
   transform:scale(0.96) translateY(10px);transition:transform 0.2s ease;
@@ -273,8 +297,8 @@ body::after{
 .gallery-overlay.open .gallery-window{transform:scale(1) translateY(0);}
 .gallery-titlebar{
   height:40px;flex-shrink:0;display:flex;align-items:center;padding:0 14px;
-  background:linear-gradient(180deg,#2b2b2c,#1c191d);
-  border-bottom:1px solid var(--line);
+  background:#212122;
+  border-bottom:0.5px solid var(--line);
 }
 .gallery-titlebar .traffic{display:flex;gap:8px;margin-right:14px;}
 .gallery-titlebar .dot{width:12px;height:12px;border-radius:50%;cursor:pointer;}
@@ -283,7 +307,7 @@ body::after{
 .gallery-titlebar .dot.green{background:#28C840;}
 .gallery-title{
   flex:1;text-align:center;font-size:12.5px;font-weight:600;
-  color:rgba(255,255,255,0.75);margin-right:60px;
+  color:rgba(255, 255, 255, 0.685);margin-right:60px;
 }
 .gallery-body{
   flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -343,15 +367,15 @@ body::after{
 }
 .process-step:first-child{border-top:none;}
 .process-icon{
-  width:38px;height:38px;border-radius:10px;flex-shrink:0;
-  background:#24b1391e;display:flex;align-items:center;justify-content:center;
+  width:36px;height:36px;border-radius:10px;flex-shrink:0;
+  background:rgba(189, 66, 50, 0.342);display:flex;align-items:center;justify-content:center;
   font-family:'League Spartan',sans-serif;font-weight:700;font-size:13px;color:var(--mauve-light);
 }
 .process-name{font-size:14px;font-weight:600;margin-bottom:4px;}
 .process-desc{font-size:13px;line-height:1.6;color:rgba(255,255,255,0.65);font-weight:300;}
 .process-content{display:flex;gap:20px;flex:1;align-items:flex-start;}
-.process-text{flex:1.2;}
-.process-image{width:320px;flex-shrink:0;border-radius:8px;display:block;}
+.process-text{flex:0.9;}
+.process-image{width:400px;flex-shrink:0;border-radius:8px;display:block;}
 
 /* ---------- IMPACT STATS ---------- */
 .stats-grid{
@@ -398,7 +422,7 @@ body::after{
   text-decoration:none;display:inline-block;background-color:rgba(255,255,255,0.12);
   border:1px solid var(--line);transition:background 0.2s;
 }
-.send-btn:hover{background:rgba(154, 192, 84, 0.322);}
+.send-btn:hover{background:rgba(189, 66, 50, 0.384);}
 
 /* ---------- FOOTER ---------- */
 .case-footer{
@@ -415,7 +439,11 @@ body::after{
   .facts-grid{grid-template-columns:repeat(2,1fr);}
   .stats-grid{grid-template-columns:1fr;}
   .process-content{flex-direction:column;}
-  .process-image{width:100%;max-width:280px;}
+  .process-image{width:100%;max-width:300px;}
+}
+
+.hidden {
+  display: none;
 }
 </style>
 </head>
@@ -458,6 +486,7 @@ body::after{
         <h1 class="case-title">Real Estate CRM</h1>
       </div>
       <p class="case-intro">Building a smarter way to manage real estate operations.</p>
+      <p class="case-intro">Visit this website <a href="https://propiedades-mendoza-curi.com/" target="_blank" rel="noopener noreferrer">here</a>.</p>
     </header>
 
     <!-- HERO MEDIA -->
@@ -466,7 +495,7 @@ body::after{
         <div class="traffic"><span class="dot red"></span><span class="dot yellow"></span><span class="dot green"></span></div>
       </div>
       <div class="hero-media-body">
-        <img src="static/portfolio-img/root-skills/project-overview-rootskills.png" alt="Root Skills project overview">
+        <img src="static/portfolio-img/mendoza-curi/overview-mendozacuri.png" alt="Mendoza Curi project overview">
       </div>
     </div>
 
@@ -479,42 +508,64 @@ body::after{
     </div>
 
     <!-- WHAT I BUILT -->
-    <ul class="built-list">
-      <li class="built-item"><span class="built-num">01</span><span>A conceptual adaptive onboarding framework grounded in UX research.</span></li>
-      <li class="built-item"><span class="built-num">02</span><span>A simulated AI assistant designed to personalize onboarding and provide contextual learning support.</span></li>
-      <li class="built-item"><span class="built-num">03</span><span>A high-fidelity EdTech prototype with adaptive user flows and a simplified design system.</span></li>
-      <li class="built-item"><span class="built-num">04</span><span>A research-backed concept refined through two rounds of usability testing.</span></li>
-    </ul>
+<ul class="built-list">
+  <li class="built-item"><span class="built-num">01</span><span>A custom CRM designed around the real workflow of a growing real estate agency.</span></li>
+  <li class="built-item"><span class="built-num">02</span><span>A responsive property listing website integrated with the CRM for effortless content management.</span></li>
+  <li class="built-item"><span class="built-num">03</span><span>User-friendly interfaces that simplify property administration, client management, and document organization.</span></li>
+  <li class="built-item"><span class="built-num">04</span><span>A collaborative design and development process driven by continuous client feedback and iterative improvements.</span></li>
+</ul>
 
     <!-- OVERVIEW -->
     <section class="case-section" id="overview">
-      <div class="section-eyebrow">Overview</div>
-      <h2 class="section-title">Exploring how AI can make onboarding more inclusive</h2>
-      <p class="section-text">This master's thesis explores how personalized onboarding experiences can improve accessibility and reduce cognitive load for first-time users of digital products. 
-        Rather than proposing a one-size-fits-all onboarding flow, the project investigates how onboarding can adapt to different user profiles based on their technological experience and contextual needs. <br><br>
-        The outcome is a conceptual UX proposal for an EdTech application, where AI is integrated as a design mechanism to personalize onboarding pathways while maintaining an inclusive and accessible user experience.</p>
-      <div class="section-image">
-        <img src="static/portfolio-img/root-skills/project-overview-rootskills.png" alt="[Overview screenshot]">
-      </div>
-      <div class="section-caption">[Caption describing what's shown above]</div>
+  <div class="section-eyebrow">Overview</div>
+  <h2 class="section-title">Transforming manual real estate workflows into a centralized digital experience</h2>
+  <p class="section-text">
+    This project focused on improving how a growing real estate agency managed its day-to-day operations. Instead of relying on fragmented processes, the goal was to design a solution that centralized property management while making information easier to update and maintain.<br><br>
+    The outcome was a custom CRM connected to a responsive marketing website, enabling the agency to manage listings, documents, images, and client information from a single platform. The solution evolved through close collaboration with the client, ensuring every feature addressed real business needs and supported a more efficient workflow.
+  </p>
+    <div class="section-image">
+      <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1216958348?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Mendoza curi (Copy)"></iframe></div>
+      <script src="https://player.vimeo.com/api/player.js"></script>
+    </div>
+      <div class="section-caption">Visit this website <a href="https://propiedades-mendoza-curi.com/" target="_blank" rel="noopener noreferrer">here</a>.</div>
     </section>
 
     <!-- PROBLEM -->
     <section class="case-section" id="problem">
-      <div class="section-eyebrow">Problem</div>
-      <h2 class="section-title">Because not every user starts from the same place</h2>
-      <p class="section-text">Many digital products still rely on generic onboarding experiences that assume all users have similar levels of digital literacy. As a result, inexperienced users often feel overwhelmed, while more experienced users encounter unnecessary explanations that slow them down.</p>
-      <p class="section-text">This challenge is reinforced by the widespread belief that well-designed products should not require onboarding at all. However, research suggests that effective onboarding increases user retention, improves confidence, and reduces abandonment, highlighting the need for more adaptive approaches that accommodate diverse user needs.</p>     
-      <table class="compare-table">
-        <tr><th>Option</th><th>Why it doesn't work</th><th>Verdict</th></tr>
-        <tr><td>No onboarding at all</td><td>Assumes every user can immediately understand the interface, excluding users with lower digital literacy or unfamiliar contexts.</td><td class="verdict-no">✕ Skip</td></tr>
-        <tr><td>One-size-fits-all onboarding</td><td>Does not account for the diverse needs and experiences of different users, leading to a suboptimal experience for some.</td><td class="verdict-no">✕ Skip</td></tr>
-        <tr class="chosen"><td>Adaptive onboarding</td><td>Adjusts the onboarding experience based on user characteristics and behavior, providing a more personalized and effective approach.</td><td class="verdict-yes">✓ Built this</td></tr>
-      </table>
-    </section>
+  <div class="section-eyebrow">Problem</div>
+  <h2 class="section-title">Managing properties shouldn't require multiple tools</h2>
+  <p class="section-text">
+    The agency managed its daily operations through fragmented processes, making it difficult to keep property information organized and up to date. Publishing listings, updating details, and handling documents required repetitive manual work, increasing the risk of inconsistencies and slowing down the team's workflow.
+  </p>
+  <p class="section-text">
+    The challenge wasn't simply to build a website: it was to create a centralized system that reflected the agency's real workflow while remaining intuitive enough for non-technical users to use confidently every day.
+  </p>
+  <table class="compare-table">
+    <tr>
+      <th>Option</th>
+      <th>Why it doesn't work</th>
+      <th>Verdict</th>
+    </tr>
+    <tr>
+      <td>Continue using manual processes</td>
+      <td>Property information remains scattered, repetitive to update, and difficult to maintain consistently.</td>
+      <td class="verdict-no">✕ Skip</td>
+    </tr>
+    <tr>
+      <td>Use a generic real estate platform</td>
+      <td>Offers unnecessary features while lacking the flexibility to match the agency's specific workflow.</td>
+      <td class="verdict-no">✕ Skip</td>
+    </tr>
+    <tr class="chosen">
+      <td>Build a custom CRM</td>
+      <td>Centralizes property management, simplifies daily operations, and adapts to the client's real business needs.</td>
+      <td class="verdict-yes">✓ Built this</td>
+    </tr>
+  </table>
+</section>
 
     <!-- APPROACH -->
-<section class="case-section" id="approach">
+<section class="case-section hidden" id="approach">
   <div class="section-eyebrow">Approach</div>
   <h2 class="section-title">Inclusive Design & Double Diamond</h2>
 
@@ -557,7 +608,7 @@ body::after{
 
     <!-- FOLDERS -->
 
-<section>
+<section hidden>
       <p class="section-text">Beyond the final interface, the research and design process generated a set of core artifacts that shaped every decision along the way — from user personas and empathy maps to journey maps and early concept sketches. The foldes below walks through some of these deliverables.</p>
 
       <div class="folders-grid" style="margin-bottom:28px;">
@@ -613,49 +664,70 @@ body::after{
 
 
     <!-- HOW IT WORKS -->
-    <section class="case-section" id="how-it-works">
-      <div class="section-eyebrow">How it works</div>
-      <h2 class="section-title">Helping users from the very first interaction</h2>
-      <p class="section-text">The experience begins with an AI assistant that asks a few questions to understand each learner's background and goals.<br>
-        Based on their responses, the onboarding adapts the level of guidance and interface support. Beyond onboarding, the assistant remains available to explain lessons and activities, providing contextual help without requiring students to leave the platform.</p>
-      <div class="process-steps">
-        
-        <div class="process-step">
-          <div class="process-icon">01</div>
-          <div class="process-content">
-            <div class="process-text">
-              <div class="process-name">Conversational onboarding</div>
-              <div class="process-desc">The AI assistant greets each new learner with a short, conversational Q&A that identifies their background, prior experience, and learning goals: replacing static forms with a natural, low-friction intro.</div>
-            </div>
-            <img src="static/portfolio-img/root-skills/conversational-onboarding.png" class="process-image">
-          </div>
+<!-- HOW IT WORKS -->
+<section class="case-section" id="how-it-works">
+  <div class="section-eyebrow">How it works</div>
+  <h2 class="section-title">A centralized system built around the agents' daily workflow</h2>
+  <p class="section-text">Every property, document, and client interaction lives in one place. Agents manage the full lifecycle of a listing — from upload to publication — while sensitive data stays protected in a private workspace.</p>
+
+  <div class="process-steps">
+
+    <div class="process-step">
+      <div class="process-icon">01</div>
+      <div class="process-content">
+        <div class="process-text">
+          <div class="process-name">Centralized property management</div>
+          <div class="process-desc">Agents upload images, technical details, and descriptions for each listing, using predefined lists to quickly add amenities and nearby points of interest. Every property is assigned a unique ID code for easy identification.</div>
         </div>
-
-        <div class="process-step">
-  <img src="static/portfolio-img/root-skills/adaptive-interface.png" class="process-image">
-  <div class="process-icon">02</div>
-  <div class="process-text">
-    <div class="process-name">Adaptive interface</div>
-    <div class="process-desc">The interface dynamically adjusts based on the user's interactions and preferences, providing a personalized experience. Thanks to this feature,  beginners get more scaffolding and explanations, advanced users get a leaner, faster experience.</div>
-  </div>
-</div>
-
-        <div class="process-step">
-          <div class="process-icon">03</div>
-          <div class="process-content">
-            <div class="process-text">
-              <div class="process-name">Contextual help</div>
-              <div class="process-desc">The AI assistant remains available throughout the learning journey to provide contextual help and explanations, ensuring students never feel lost or overwhelmed.</div>
-            </div>
-            <img src="static/portfolio-img/root-skills/context-help.png" class="process-image">
-          </div>
-          </div>
-
+        <img src="static/portfolio-img/mendoza-curi/propertyy.png" class="process-image">
       </div>
-    </section>
+    </div>
+
+    <div class="process-step">
+      <img src="static/portfolio-img/mendoza-curi/private.png" class="process-image">
+      <div class="process-icon">02</div>
+      <div class="process-text">
+        <div class="process-name">Private agent workspace</div>
+        <div class="process-desc">A separate, access-restricted area stores owner contact information, ownership documents, commission percentage, and internal notes, keeping sensitive data visible only to agents.</div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-icon">03</div>
+      <div class="process-content">
+        <div class="process-text">
+          <div class="process-name">Real-time website & spreadsheet sync</div>
+          <div class="process-desc">Any update made in the CRM is instantly reflected on the public website and in an auto-generated Excel file for extra control. Deleting a property removes it from the online catalog while keeping its full record in the system.</div>
+        </div>
+        <img src="static/portfolio-img/mendoza-curi/automated.png" class="process-image">
+      </div>
+    </div>
+
+     <div class="process-step">
+      <img src="static/portfolio-img/mendoza-curi/drive.png" class="process-image">
+      <div class="process-icon">04</div>
+      <div class="process-text">
+        <div class="process-name">Automated Drive folders</div>
+        <div class="process-desc">A Google Drive folder with the property's photos is created automatically for every new listing, keeping media organized without manual effort.</div>
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div class="process-icon">05</div>
+      <div class="process-content">
+        <div class="process-text">
+          <div class="process-name">Document generator</div>
+          <div class="process-desc">Contracts can be created instantly from predefined text templates, saving agents time and reducing repetitive administrative tasks.</div>
+        </div>
+        <img src="static/portfolio-img/mendoza-curi/document.png" class="process-image">
+      </div>
+    </div>
+
+  </div>
+</section>
 
     <!-- IMPACT -->
-    <section class="case-section" id="impact">
+    <section class="case-section hidden" id="impact">
       <div class="section-eyebrow">Impact</div>
       <h2 class="section-title">How to measure success?</h2>
       <p class="section-text">Although this was a conceptual project, the proposed solution was validated through user testing and 
