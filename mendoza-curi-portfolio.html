@@ -430,8 +430,19 @@ body::after{
   padding-top:36px;margin-top:20px;border-top:1px solid var(--line);
   font-size:14px;color:rgba(255, 255, 255, 0.555);
 }
-.case-footer a{color:rgba(255,255,255,0.5);text-decoration:none;font-family:'Poppins',sans-serif;font-weight:500;}
+
 .case-footer a:hover{color:var(--mauve-light);}
+
+.case-footer a{
+  background: #77121277; /* Verde */
+  color: #fff;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 500;
+  padding: 10px 16px;
+  border-radius: 999px; /* Botón tipo pill */
+  transition: opacity 0.25s ease;
+}
 
 @media(max-width:900px){
   .case-wrap{grid-template-columns:1fr;padding:36px 20px 90px;}
@@ -565,23 +576,26 @@ body::after{
 </section>
 
     <!-- APPROACH -->
-<section class="case-section hidden" id="approach">
+<section class="case-section" id="approach">
   <div class="section-eyebrow">Approach</div>
-  <h2 class="section-title">Inclusive Design & Double Diamond</h2>
+  <h2 class="section-title">Design Thinking & Agile</h2>
 
   <p class="section-text">
-    This project followed an <strong>Inclusive Design</strong> approach, using
-    human diversity as the starting point for designing more accessible
-    onboarding experiences.
+    This project followed a <strong>Design Thinking</strong> approach, using the agency's real
+    day-to-day operations as the starting point for designing a system that
+    actually fit how the team worked.
     <br><br>
-    Instead of assuming that all users should interact with the same interface
-    in the same way, the project explored how onboarding could adapt to
-    different levels of digital literacy while maintaining a shared, accessible
-    experience.
+
+    Instead of assuming a generic CRM template would solve the agency's problems, the project
+    <strong>explored how a centralized system could adapt</strong> to non-technical users' 
+    existing habits while streamlining fragmented, repetitive processes.
     <br><br>
-    To structure the research and design process, I followed the
-    <strong>Double Diamond</strong> framework, moving iteratively through four
-    stages:
+
+    Working in a lean two-person team alongside a backend developer, I structured the 
+    process using Agile sprints with clearly defined goals, allowing the design to evolve 
+    iteratively based on real constraints and feedback rather than a single upfront plan. 
+    This was combined with a full Design Thinking cycle: <strong>Empathize, Define, Ideate, Prototype, 
+    and Test</strong>, which helped ground each sprint in actual user needs rather than assumptions.
   </p>
 
   <figure class="approach-figure">
@@ -729,8 +743,6 @@ body::after{
     <section class="case-section" id="impact">
       <div class="section-eyebrow">Impact</div>
       <h2 class="section-title">How to measure success?</h2>
-      <p class="section-text">Although this was a conceptual project, the proposed solution was validated through user testing and 
-        academic evaluation, demonstrating the potential of adaptive onboarding to improve first-time user experiences.</p>
       <div class="stats-grid">
         <div class="stat-card">
           <div class="stat-value">4K+</div>
@@ -758,14 +770,13 @@ body::after{
     <section class="case-section" id="learnings">
       <div class="section-eyebrow">Learnings</div>
       <h2 class="section-title">Design takeaways</h2>
-      <p class="section-text">Designing for inclusion means adapting experiences to people rather than expecting people to adapt to technology:</p>
+      <p class="section-text">Designing for real workflows means adapting the system to how people already work, not forcing them to learn a new process:</p>
       <div>
         <ul class="section-text">
-          <li>Inclusive Design starts with understanding diverse user needs, not designing for an "average" user.</li>
-          <li>Personalization can reduce cognitive load and improve first-time user experiences.</li>
-          <li>AI can enhance accessibility when used as a supportive tool, not as the product itself.</li>
-          <li>Early and repeated user testing led to more informed design decisions.</li>
-          <li>Iteration is an essential part of building meaningful user experiences.</li>
+          <li>Understanding the agency's actual workflow before designing was more valuable than designing for an "ideal user" or a generic CRM use case.</li>
+          <li>Centralizing fragmented processes reduced the margin for error and cognitive load for the team, especially for repetitive tasks.</li>
+          <li>Testing with the agency's actual team, not just hypothetical users, surfaced friction points that weren't obvious from the design alone.</li>
+          <li>Streamlining the publishing flow measurably reduced the time to get a listing live.</li>
         </ul>
       </div>
     </section>
@@ -773,14 +784,18 @@ body::after{
     <!-- WHAT'S NEXT -->
     <section class="case-section" id="next">
       <div class="section-eyebrow">What's next</div>
-      <h2 class="section-title">Beyond the prototype</h2>
-        <p class="section-text">My next goal is to work on its launch as a fully functional prototype powered by real AI models capable of dynamically adapting onboarding based on user behavior.</p>
-        <p class="section-text">Additional opportunities include validating the framework with larger and more diverse user groups, integrating behavioral analytics, measuring long-term retention,
-          and exploring adaptive onboarding in domains beyond EdTech, such as healthcare, finance, and government digital services.</p>
+      <div>
+      <h2 class="section-title">Beyond the MVP</h2>
+        <p class="section-text">My next goal is to refine the platform's UI to better reflect the agency's brand and make daily workflows feel even faster and more effortless for the team. Additional opportunities include:</p>
+        <ul class="section-text">
+          <li>Expanding automation: auto-generating property descriptions or suggesting pricing based on comparable listings, reducing manual data entry even further.</li>
+          <li>Integrating with external portals: syncing listings automatically with platforms like Facebook Marketplace, Inmuebles24, or Casas y Terrenos to eliminate duplicate publishing work.</li>
+          <li>Adding a client-facing view: a simplified portal or app where clients can track their property search or sale status without contacting the agency directly.</li>
+          <li>Mobile-first support: enabling agents to update listings or access documents on-site (e.g., during property visits) rather than only from a desktop.</li>
+          <li>Document workflow automation: smart templates or e-signature integration for contracts and paperwork, extending centralization beyond listings.</li>
+        </ul>
+      </div>
     </section>
-    <div>
-      <img>
-    </div>
 
 
     <!-- CTA -->

@@ -37,6 +37,81 @@ body::after{
 }
 .hidden{display:none !important;}
 
+/* ---------- TRASH INTERACTION ---------- */
+@keyframes screenShake{
+  0%{transform:translate(0,0);}
+  10%{transform:translate(-6px,-3px) rotate(-0.4deg);}
+  20%{transform:translate(5px,3px) rotate(0.4deg);}
+  30%{transform:translate(-5px,2px) rotate(-0.3deg);}
+  40%{transform:translate(6px,-2px) rotate(0.3deg);}
+  50%{transform:translate(-4px,3px) rotate(-0.2deg);}
+  60%{transform:translate(4px,-3px) rotate(0.2deg);}
+  70%{transform:translate(-3px,1px) rotate(-0.1deg);}
+  80%{transform:translate(3px,-1px) rotate(0.1deg);}
+  90%{transform:translate(-1px,1px) rotate(0);}
+  100%{transform:translate(0,0);}
+}
+body.trash-shake{animation:screenShake 380ms ease-in-out;}
+
+@keyframes trashSwivel{
+  0%{transform:rotate(0deg);}
+  20%{transform:rotate(-15deg);}
+  50%{transform:rotate(15deg);}
+  75%{transform:rotate(-6deg);}
+  100%{transform:rotate(0deg);}
+}
+.dock-item.trash-swivel{animation:trashSwivel 500ms cubic-bezier(.36,1.8,.4,1);}
+
+.trash-bubble-wrap{
+  position:fixed;
+  z-index:900;pointer-events:none;
+  display:flex;justify-content:center;
+}
+.trash-bubble{
+  position:relative;
+  max-width:280px;
+  background:rgba(245,245,247,0.96);
+  color:#1c1c1e;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  line-height:1.35;
+  padding:9px 14px;
+  border-radius:18px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.28), 0 2px 6px rgba(0,0,0,0.15);
+  opacity:0;
+  transform:translateY(14px) scale(0.92);
+  transition:opacity 0.22s ease, transform 0.22s cubic-bezier(.34,1.56,.64,1);
+}
+.trash-bubble.show{
+  opacity:1;
+  transform:translateY(0) scale(1);
+}
+.trash-bubble.fast-in{
+  transition:opacity 0.12s ease, transform 0.12s cubic-bezier(.34,1.9,.64,1);
+}
+.trash-bubble.fade-out{
+  opacity:0;
+  transform:translateY(-6px) scale(0.96);
+  transition:opacity 0.5s ease, transform 0.5s ease;
+}
+.trash-bubble::after{
+  content:'';
+  position:absolute;
+  bottom:-6px;
+  left:50%;
+  transform:translateX(-50%);
+  width:16px;height:16px;
+  background:rgba(245,245,247,0.96);
+  border-radius:0 0 6px 0;
+  clip-path:polygon(0 0, 100% 0, 0 100%);
+}
+
+@media (prefers-color-scheme: dark){
+  .trash-bubble{background:rgba(58,58,60,0.96);color:#f2f2f7;}
+  .trash-bubble::after{background:rgba(58,58,60,0.96);}
+}
+
 /* ---------- MENU BAR ---------- */
 .menubar{
   position:fixed;top:0;left:0;right:0;height:26px;z-index:500;
@@ -286,6 +361,64 @@ body::after{
 }
 .photo-window-body img{
   width:100%;display:block;object-fit:contain;
+}
+
+/* ---------- NOTES WINDOW (iOS inspired) ---------- */
+.notes-window .titlebar{
+  background:linear-gradient(180deg,#2b2b2c,#1c191d);
+}
+.notes-body{
+  display:flex;height:440px;padding:0;position:relative;
+}
+.notes-sidebar{
+  width:170px;flex-shrink:0;
+  background:rgba(255,255,255,0.04);
+  border-right:1px solid rgba(255,255,255,0.08);
+  overflow-y:auto;padding:8px 0;
+}
+.notes-sidebar-title{
+  font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;
+  color:rgba(255,255,255,0.4);padding:10px 14px 6px;
+}
+.note-list-item{
+  padding:10px 14px;cursor:pointer;border-left:3px solid transparent;
+  transition:background 0.12s ease;
+}
+.note-list-item:hover{background:rgba(255,255,255,0.05);}
+.note-list-item.active{
+  background:rgba(255,204,102,0.12);
+  border-left:3px solid #FFCC66;
+}
+.note-list-item .note-title{
+  font-size:12px;font-weight:600;color:rgba(255,255,255,0.9);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.note-list-item .note-preview{
+  font-size:11.5px;color:rgba(255,255,255,0.4);margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.notes-main{
+  flex:1;display:flex;flex-direction:column;
+  background-color:#222122;
+}
+.notes-main-header{
+  padding:14px 24px 6px;flex-shrink:0;
+}
+.notes-main-date{
+  font-size:11px;color:rgba(255,255,255,0.35);text-align:center;margin-bottom:4px;
+}
+.note-content{
+  flex:1;width:100%;white-space:pre-wrap;
+  color:rgba(255, 255, 255, 0.808);
+  font-family:'Inter',sans-serif;font-size:12px;line-height:24px;
+  padding:0 24px 20px;
+  overflow-y:auto;
+}
+@media (max-width:600px){
+  .notes-body{flex-direction:column;height:520px;}
+  .notes-sidebar{width:100%;display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
+  .note-list-item{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;}
+  .note-list-item.active{border-left:none;border-bottom:3px solid #FFCC66;}
 }
 
 
@@ -802,7 +935,7 @@ body::after{
   </div>
   <div class="about-main-divider"></div>
   <div class="about-section" id="section-bio">
-    <p class="about-main-bio">Mexican 28-year-old UX designer, currently based in Barcelona.<br>
+    <p class="about-main-bio">29-year-old UX designer, currently based in Barcelona.<br>
       I have experience designing digital products: from educational platforms and CRM systems to landing pages and web applications.
       Over the past few years, I've also developed a strong understanding of HTML, CSS, and web hosting, which helps me bridge the gap between design and implementation.<br><br>
       I hold a Master's degree in UX Design; and I'm particularly passionate about educational products and the impact they can have on people's lives.<br><br>
@@ -1046,6 +1179,64 @@ body::after{
   </div>
 </div>
 
+<!-- NOTES WINDOW -->
+<div class="window notes-window hidden" id="win-notes" style="top:64px;left:230px;width:560px;">
+  <div class="titlebar" data-drag>
+    <div class="traffic"><span class="dot red" onclick="closeWin('notes')"></span><span class="dot yellow" onclick="closeWin('notes')"></span><span class="dot green"></span></div>
+    <div class="wintitle">Notes</div>
+  </div>
+  <div class="notes-body">
+    <div class="notes-sidebar">
+      <div class="notes-sidebar-title">Ana's notes</div>
+      <div class="note-list-item active" data-note="1" onclick="selectNote(1)">
+        <div class="note-title">Design in the age of AI</div>
+        <div class="note-preview" id="preview-1">There's a lot of noise...</div>
+      </div>
+      <div class="note-list-item" data-note="2" onclick="selectNote(2)">
+        <div class="note-title">About this portfolio</div>
+        <div class="note-preview" id="preview-2">I cannot count how many...</div>
+      </div>
+      <div class="note-list-item" data-note="3" onclick="selectNote(3)">
+        <div class="note-title">What NOT to design</div>
+        <div class="note-preview" id="preview-3">Good design is knowing wh...</div>
+      </div>
+    </div>
+    <div class="notes-main">
+      <div class="notes-main-header">
+        <div class="notes-main-date" id="noteDate">Today</div>
+      </div>
+      <!-- Nota 1: edita el texto entre las etiquetas <div class="note-content">...</div> -->
+      <div class="note-content" id="note-1" data-note="1"><strong>Design in the age of AI</strong><br>
+AI isn't replacing my design process, but it's removing friction inside it, so I can spend more time on the decisions that actually matter:
+<strong>-Structuring messy thinking.</strong> Interview notes, rough flow ideas, an unclear case study section: I use AI to turn scattered thoughts into a first draft I can react to, not to generate ideas for me.
+<strong>-Speeding up repetitive work.</strong> Sprint tickets, research questions, testing summaries, adapting case study sections: AI handles the first pass for me, so I can focus on refining, not starting from zero.
+<strong>-De-risking prototypes.</strong> On my CRM project, I used AI to quickly mock up interaction ideas: like a playful confirmation animation: before committing dev time to build them. Same logic as a paper prototype, just faster.
+<strong>-Where I draw the line.</strong> AI doesn't decide what users need, doesn't replace real testing, and doesn't get final say on whether something feels right. That judgment is still the actual job.
+This way, AI hasn't changed what I design: just how much time I get to spend doing it.
+    </div>
+      <!-- Nota 2 -->
+      <div class="note-content hidden" id="note-2" data-note="2"><strong>About this portfolio</strong><br>
+I cannot count how many times I've rebuilt this portfolio. I had to say that I didn't land on my portfolio, I stumbled into it after trying (and abandoning) almost every tool a designer could reach for:
+-Behance: felt like moving into a house someone else already decorated. Cute, but not mine, I need more interactions, more control.
+-PDF: basically emailing people a brochure and hoping they'd imagine the interactions themselves.
+-Notion: i'm totally in love with this tool, but not to create a portfolio, it looked like a very organized to-do list.
+-Framer: so close! Right up until I wanted one specific animation and the tool looked at me like I'd asked for too much.
+-Wix: fast, easy, done in a day, also the exact ceiling I hit the moment I wanted anything custom and personal.
+Then, I just wrote the code myself, and suddenly nothing was standing between me and the thing in my head. Every animation, every weird little detail: mine, on purpose,and no platform telling me "no."
+So if this site is live and running right now, just know it's held together by an unreasonable number of late nights, but it totally worth it!</div>
+
+      <!-- Nota 3 -->
+      <div class="note-content hidden" id="note-3" data-note="3"><strong>What NOT to design</strong><br>
+Good design is knowing what to leave out, and why.
+-CRM project: the agency wanted a dashboard with dozens of widgets. But the real problem was too many steps to publish a listing, not too few options — so I cut it to the three things agents actually checked daily. Fewer features, better time-to-publish.
+-EdTech project: AI could've been the headline feature. Instead I made it invisible infrastructure — adapting onboarding quietly instead of asking users to configure it.
+-The pattern: adding more usually proves effort, not value. My job is finding what actually solves the problem, and defending cutting the rest — even when a stakeholder loves the shiny version.
+That's the part that never shows up in a Figma file.
+</div>
+    </div>
+  </div>
+</div>
+
 
 <!-----DOCK------>
 <div class="dock-wrap">
@@ -1062,17 +1253,19 @@ body::after{
       <img src="static/portfolio-img/safari.png" alt="Safari icon">
     </div>
     
-    <div class="dock-item" title="Notes (próximamente)">
+    <div class="dock-item" data-win="notes" onclick="openWin('notes')" title="Notes">
       <img src="static/portfolio-img/notes.webp" alt="Notes">
     </div>
     
     <div class="dock-sep"></div>
     
-    <div class="dock-item" title="Trash">
+    <div class="dock-item" id="trashDockItem" title="Trash" onclick="handleTrashClick()">
       <img src="static/portfolio-img/trashbin.png" alt="Trash">
     </div>
   </div>
 </div>
+
+<div class="trash-bubble-wrap" id="trashBubbleWrap"></div>
 
 <script>
 /* live clock */
@@ -1089,7 +1282,7 @@ updateClock(); setInterval(updateClock, 1000*20);
 
 /* window management */
 let zTop = 60;
-const titles = { about:'About Me', projects:'Projects', resume:'Resume', contact:'Mail', safari:'Safari' };
+const titles = { about:'About Me', projects:'Projects', resume:'Resume', contact:'Mail', safari:'Safari', notes:'Notes' };
 
 function focusHero(){
   document.getElementById('menuAppName').textContent = 'About Me';
@@ -1239,6 +1432,103 @@ function closeAboutMac(){
 
 /* boot: hero is always visible, no window to open */
 window.addEventListener('load', ()=>document.querySelectorAll('.dock-item').forEach(d=>d.classList.toggle('active', d.dataset.win==='about')));
+
+/* ---------- NOTES APP (contenido fijo, solo lectura para el visitante) ---------- */
+/* Para actualizar los previews de la barra lateral cuando cambies el texto de una nota,
+   simplemente edita el "note-preview" correspondiente en el HTML. */
+
+function selectNote(n){
+  document.querySelectorAll('.note-content').forEach(t=>t.classList.add('hidden'));
+  document.getElementById('note-'+n).classList.remove('hidden');
+  document.querySelectorAll('.note-list-item').forEach(item=>{
+    item.classList.toggle('active', item.dataset.note == n);
+  });
+}
+
+function updateNoteDate(){
+  const d = new Date();
+  const opts = { weekday:'long', day:'numeric', month:'long' };
+  document.getElementById('noteDate').textContent = d.toLocaleDateString('en-US', opts);
+}
+
+updateNoteDate();
+
+/* ---------- TRASH INTERACTION ---------- */
+let trashPressCount = 0; // resets only when item is "restored" (not implemented as a real restore here, stays until manual reset)
+
+function positionTrashBubbleWrap(){
+  const wrap = document.getElementById('trashBubbleWrap');
+  const trashItem = document.getElementById('trashDockItem');
+  const rect = trashItem.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  wrap.style.left = centerX + 'px';
+  wrap.style.bottom = (window.innerHeight - rect.top + 14) + 'px';
+  wrap.style.transform = 'translateX(-50%)';
+}
+
+function showTrashBubble(text, fastIn){
+  const wrap = document.getElementById('trashBubbleWrap');
+  positionTrashBubbleWrap();
+  // remove any existing bubble immediately so they don't stack
+  wrap.innerHTML = '';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'trash-bubble' + (fastIn ? ' fast-in' : '');
+  bubble.textContent = text;
+  wrap.appendChild(bubble);
+
+  // trigger enter animation on next frame
+  requestAnimationFrame(()=>{
+    requestAnimationFrame(()=>bubble.classList.add('show'));
+  });
+
+  // auto-dismiss
+  setTimeout(()=>{
+    bubble.classList.remove('show');
+    bubble.classList.add('fade-out');
+    setTimeout(()=>{
+      if(bubble.parentNode) bubble.parentNode.removeChild(bubble);
+    }, 520);
+  }, 2000);
+}
+
+function triggerScreenShake(){
+  document.body.classList.remove('trash-shake');
+  void document.body.offsetWidth; // force reflow to allow re-trigger
+  document.body.classList.add('trash-shake');
+  setTimeout(()=>document.body.classList.remove('trash-shake'), 400);
+}
+
+function triggerTrashSwivel(){
+  const item = document.getElementById('trashDockItem');
+  item.classList.remove('trash-swivel');
+  void item.offsetWidth;
+  item.classList.add('trash-swivel');
+  setTimeout(()=>item.classList.remove('trash-swivel'), 520);
+}
+
+window.addEventListener('resize', ()=>{
+  if(document.getElementById('trashBubbleWrap').children.length){
+    positionTrashBubbleWrap();
+  }
+});
+
+function handleTrashClick(){
+  trashPressCount++;
+
+  if(trashPressCount === 1){
+    triggerScreenShake();
+    showTrashBubble('Portfolio moved to trash.', false);
+  } else if(trashPressCount === 2){
+    showTrashBubble('Portfolio is already in the trash.', false);
+  } else if(trashPressCount === 3){
+    showTrashBubble('Seriously, stop.', true);
+  } else {
+    triggerTrashSwivel();
+    // cycle back so pressing again after the swivel restarts the sequence with a shake
+    trashPressCount = 0;
+  }
+}
 </script>
 </body>
 </html>
