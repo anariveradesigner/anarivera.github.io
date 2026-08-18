@@ -404,6 +404,8 @@ body.trash-shake{animation:screenShake 380ms ease-in-out;}
 .notes-main-header{
   padding:14px 24px 6px;flex-shrink:0;
 }
+.notes-back-btn{display:none;}
+.ios-only-icons{display:none;}
 .notes-main-date{
   font-size:11px;color:rgba(255,255,255,0.35);text-align:center;margin-bottom:4px;
 }
@@ -414,12 +416,7 @@ body.trash-shake{animation:screenShake 380ms ease-in-out;}
   padding:0 24px 20px;
   overflow-y:auto;
 }
-@media (max-width:600px){
-  .notes-body{flex-direction:column;height:520px;}
-  .notes-sidebar{width:100%;display:flex;overflow-x:auto;border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);}
-  .note-list-item{border-left:none;border-bottom:3px solid transparent;flex-shrink:0;}
-  .note-list-item.active{border-left:none;border-bottom:3px solid #FFCC66;}
-}
+
 
 
 /* ---------- HERO (hi, i'm Ana) ---------- */
@@ -620,76 +617,221 @@ body.trash-shake{animation:screenShake 380ms ease-in-out;}
 .winbody::-webkit-scrollbar-thumb{background:rgba(0,0,0,0.15);border-radius:10px;}
 
 @media(max-width:720px){
-  html,body{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;}
+  html,body{height:auto;min-height:100%;overflow-y:auto;overflow-x:hidden;-webkit-tap-highlight-color:transparent;}
+  *{-webkit-tap-highlight-color:transparent;}
 
-  /* menubar: drop the desktop-only menu items, keep it tidy */
+  /* put the hero (photo + greeting) first so it's visible without scrolling,
+     with the home-screen icons following underneath */
+  body{display:flex;flex-direction:column;}
+  .hero{order:-1;}
+
+  /* ---------- STATUS BAR (was: macOS menu bar) ---------- */
+  .menubar{
+    height:44px;padding:0 18px 0 20px;
+    background:rgba(22,20,22,0.72);
+    backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    border-bottom:1px solid rgba(255,255,255,0.07);
+  }
   .menu-item{display:none;}
-  .app-name{font-size:12px;}
-  .menubar{padding:0 10px;}
+  .apple-logo{display:none;}
+  .app-name{font-size:14px;font-weight:600;color:rgba(255,255,255,0.92);}
+  .menubar-right{gap:8px;font-size:13.5px;font-weight:600;font-variant-numeric:tabular-nums;}
+  .ios-only-icons{display:inline-flex;align-items:center;}
 
-  /* desktop icons: take them out of the fixed overlay so they can't
-     float on top of the hero, and lay them out as a row instead */
-  .desktop{height:auto;min-height:100vh;overflow:visible;padding-bottom:120px;}
+  /* ---------- HOME SCREEN (was: desktop folder icons) ---------- */
+  .desktop{height:auto;min-height:0;overflow:visible;padding-bottom:130px;}
   .desktop-icons{
     position:static;
-    flex-direction:row;flex-wrap:wrap;
-    justify-content:center;
-    width:92vw;margin:64px auto 0;
-    gap:22px 14px;
+    display:grid;grid-template-columns:repeat(4,1fr);
+    justify-items:center;
+    width:88vw;max-width:400px;margin:20px auto 0;
+    gap:26px 10px;
   }
-  .dicon{width:64px;}
-  .dicon .glyph{width:50px;height:50px;}
-  .dicon span{font-size:11.5px;}
+  .dicon{width:auto;}
+  .dicon .glyph{width:58px;height:58px;margin-bottom:6px;}
+  .glyph.icon-img img{border-radius:22%;box-shadow:0 4px 10px rgba(0,0,0,0.3);}
+  .dicon span{font-size:11px;color:rgba(255,255,255,0.92);text-shadow:0 1px 2px rgba(0,0,0,0.5);}
+  .dicon:active .glyph{transform:scale(0.9);}
+  .dicon:hover .glyph{transform:none;}
 
-  /* hero: already stacks via the 1000px query, just tighten sizes */
-  .hero{margin:24px auto 0;}
-  .hero-hi{font-size:30px;}
-  .hero-sub{font-size:13.5px;margin-top:26px;line-height:1.6;}
+  /* ---------- HERO ---------- */
+  .hero{
+    margin:44px auto 0;
+    min-height:calc(100vh - 44px);
+    display:flex;flex-direction:column;justify-content:center;gap:16px;
+    padding:16px 0 60px;
+  }
+  .photo-frame{border-radius:20px;max-width:260px;}
+  .hero-hi{font-size:26px;margin-bottom:16px !important;}
+  .hero-sub{font-size:13.5px;margin-top:14px !important;line-height:1.55;}
+  .photo-titlebar{justify-content:center;height:34px;}
+  .photo-titlebar .traffic,
+  .photo-titlebar .zoom-icons{display:none;}
+  .photo-titlebar .filename{flex:none;text-align:center;font-size:13px;}
 
-  /* windows: near-fullscreen, anchored between menubar and dock,
-     with internal scrolling instead of getting clipped */
+  /* ---------- WINDOWS → iOS SHEETS ---------- */
   .window{
-    top:44px !important;left:3vw !important;right:3vw !important;
-    bottom:78px !important;width:auto !important;height:auto !important;
-    max-height:none !important;
+    top:auto !important;left:0 !important;right:0 !important;bottom:0 !important;
+    width:100% !important;height:92vh !important;max-height:92vh !important;
+    border-radius:22px 22px 0 0;
+    box-shadow:0 -12px 40px rgba(0,0,0,0.45);
+    opacity:1 !important;
+    transform:translateY(100%);
+    transition:transform 0.34s cubic-bezier(.32,.72,0,1);
+    padding-bottom:env(safe-area-inset-bottom);
   }
+  .window.open{transform:translateY(0);}
   .window .winbody,
   .window .about-window-body,
   .window .safari-content,
   .window .photo-window-body{
     flex:1 1 auto;min-height:0;height:100%;
   }
-  .winbody{-webkit-overflow-scrolling:touch;}
+  .winbody{-webkit-overflow-scrolling:touch;padding:20px 18px 34px;}
 
-  /* About window: sidebar becomes a horizontal scrollable tab strip */
+  /* nav bar (was: titlebar with traffic-light window controls) */
+  .titlebar{
+    position:relative;height:54px;padding:0 12px;
+    background:rgba(23,20,23,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+    cursor:default;
+  }
+  .titlebar:active{cursor:default;}
+  .traffic{gap:0;}
+  .window .traffic .dot.yellow,
+  .window .traffic .dot.green{display:none;}
+  .window .traffic .dot.red{
+    width:auto;height:34px;border-radius:100px;
+    background:var(--mauve-dim);border:none;
+    display:flex;align-items:center;justify-content:center;
+    padding:0 16px 0 12px;gap:2px;
+    font-family:'Inter',sans-serif;font-size:14.5px;font-weight:600;
+    color:var(--mauve-light);
+  }
+  .window .traffic .dot.red::before{content:'‹ Close';}
+  .window .traffic .dot.red:active{transform:scale(0.95);opacity:0.85;}
+  .wintitle,
+  #win-safari .safari-tabs{
+    position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    margin:0;font-size:15px;font-weight:600;
+    max-width:52%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .safari-tab{background:none;padding:0;font-size:14px;font-weight:600;color:#fff;gap:6px;}
+
+  /* Safari: move browsing controls into a bottom toolbar, iOS-style */
+  #win-safari{display:flex;flex-direction:column;}
+  #win-safari .safari-toolbar{
+    order:3;margin-top:auto;
+    border-top:1px solid rgba(255,255,255,0.08);border-bottom:none;
+    background:rgba(23,20,23,0.85);backdrop-filter:blur(20px);
+    padding:16px 30px calc(16px + env(safe-area-inset-bottom));
+    justify-content:space-between;
+  }
+  #win-safari .safari-content{order:2;flex:1;min-height:0;}
+  #win-safari .safari-addressbar{display:none;}
+  #win-safari .safari-nav-btn{font-size:22px;color:rgba(255,255,255,0.85);}
+
+  /* About window: sidebar becomes an iOS segmented-control tab strip */
   .about-window-body{flex-direction:column;}
   .about-sidebar{
     width:100%;flex-direction:row;align-items:center;
-    overflow-x:auto;gap:8px;padding:10px 12px;
-    border-right:none;border-bottom:1px solid rgba(255,255,255,0.08);
-    flex-shrink:0;
+    overflow-x:auto;gap:8px;padding:12px;
+    border-right:none;border-bottom:1px solid rgba(255,255,255,0.07);
+    flex-shrink:0;background:rgba(255,255,255,0.02);
   }
   .about-search{display:none;}
-  .about-sidebar-profile{flex-shrink:0;margin-bottom:0;}
-  .about-nav-item{flex-shrink:0;white-space:nowrap;}
-  .about-main{padding:16px 18px;}
+  .about-sidebar-profile{
+    flex-shrink:0;margin-bottom:0;border-radius:100px;
+    padding:8px 14px 8px 8px;background:rgba(255,255,255,0.06);
+  }
+  .about-sidebar-role{display:none;}
+  .about-nav-item{
+    flex-shrink:0;white-space:nowrap;
+    background:rgba(255,255,255,0.06);border-radius:100px;
+    padding:9px 15px;font-weight:500;
+  }
+  .about-nav-item.active{background:var(--mauve);color:#fff;}
+  .about-nav-item:active{transform:scale(0.96);}
+  .about-main{padding:18px 20px;}
   .about-grid{flex-direction:column;}
   .interests-gallery{grid-template-columns:repeat(2,1fr);}
+  .about-tool-chip:active{transform:scale(0.94);}
 
-  /* dock: slightly smaller so 5 icons breathe on narrow screens */
-  .dock{gap:8px;padding:8px 10px;}
-  .dock-item{width:46px;height:46px;border-radius:12px;}
-  .dock-sep{margin:8px 1px;}
+  /* Projects window rows: touch feedback */
+  .proj-row{padding:14px 10px;}
+  .proj-row:active{background:rgba(255,255,255,0.08);}
+
+  /* Notes app: iOS-style push navigation (list → detail) */
+  .notes-body{position:relative;overflow:hidden;height:100% !important;}
+  .notes-sidebar{
+    width:100%;position:absolute;inset:0;
+    border-right:none;border-bottom:none;
+    transition:transform 0.3s cubic-bezier(.32,.72,0,1);
+  }
+  .note-list-item{padding:13px 16px;}
+  .note-list-item:active{background:rgba(255,255,255,0.06);}
+  .notes-main{
+    position:absolute;inset:0;
+    transform:translateX(100%);
+    transition:transform 0.3s cubic-bezier(.32,.72,0,1);
+  }
+  .notes-body.note-detail-open .notes-sidebar{transform:translateX(-100%);}
+  .notes-body.note-detail-open .notes-main{transform:translateX(0);}
+  .notes-main-header{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 6px;}
+  .notes-back-btn{
+    display:inline-flex;align-items:center;
+    background:none;border:none;color:var(--mauve-light);
+    font-size:15px;font-weight:500;padding:4px 0;cursor:pointer;
+    font-family:'Inter',sans-serif;
+  }
+  .notes-back-btn:active{opacity:0.6;}
+  .notes-main-date{margin:0;}
+  .note-content{padding:0 18px 24px;}
+
+  /* Buttons & links → iOS pill controls with tap feedback */
+  .send-btn{
+    display:flex;align-items:center;justify-content:center;
+    width:100%;padding:15px 20px;border-radius:100px;
+    font-size:15px;font-weight:600;
+  }
+  .send-btn:active{transform:scale(0.97);opacity:0.85;}
+  .pill-link{
+    padding:11px 16px;border-radius:100px;font-size:13px;min-height:20px;
+  }
+  .pill-link:active{transform:scale(0.95);opacity:0.85;}
+  .back-link{font-size:14px;padding:8px 0;}
+  .back-link:active{opacity:0.6;}
+
+  /* ---------- DOCK ---------- */
+  .dock-wrap{padding-bottom:max(10px, env(safe-area-inset-bottom));}
+  .dock{
+    gap:14px;padding:12px 18px;border-radius:28px;
+    background:rgba(50,44,50,0.55);
+  }
+  .dock-item{width:54px;height:54px;border-radius:15px;}
+  .dock-item::after{display:none;}
+  .dock-item:hover{transform:none;}
+  .dock-item:active{transform:scale(0.9);}
+  .dock-sep{margin:10px 1px;}
+}
+
+/* extra compaction for short-viewport phones so the greeting text never
+   ends up sitting under the dock */
+@media(max-width:720px) and (max-height:700px){
+  .hero{gap:10px;padding:12px 0 40px;}
+  .photo-frame{max-width:210px;}
+  .hero-hi{font-size:22px;margin-bottom:10px !important;}
+  .hero-sub{font-size:12.5px;margin-top:8px !important;line-height:1.45;}
 }
 
 @media(max-width:420px){
   .hero-hi{font-size:25px;}
   .hero-sub{font-size:12.5px;}
-  .dicon{width:56px;}
-  .dicon .glyph{width:44px;height:44px;}
-  .dicon span{font-size:11px;}
-  .window{top:38px !important;bottom:72px !important;}
-  .dock-item{width:42px;height:42px;}
+  .desktop-icons{gap:20px 6px;}
+  .dicon .glyph{width:50px;height:50px;}
+  .dicon span{font-size:10.5px;}
+  .window{height:94vh !important;max-height:94vh !important;}
+  .dock-item{width:48px;height:48px;}
+  .dock{gap:10px;padding:10px 14px;}
 }
 
 /* dark theme fixes for Projects / Resume / Contact windows */
@@ -780,6 +922,7 @@ body.trash-shake{animation:screenShake 380ms ease-in-out;}
   <div class="menubar-right">
     <svg width="15" height="11" viewBox="0 0 15 11" fill="white"><path d="M7.5 9.2a1 1 0 100 2 1 1 0 000-2zM3.9 6.4a5 5 0 017.2 0l1.1-1.1a6.5 6.5 0 00-9.4 0L3.9 6.4zM1.3 3.8a9 9 0 0112.4 0l1.1-1.1a10.5 10.5 0 00-14.6 0L1.3 3.8z" opacity="0.85"/></svg>
     <span id="clock">--:--</span>
+    <svg class="ios-only-icons" width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.75" y="0.75" width="20.5" height="10.5" rx="2.5" stroke="white" stroke-opacity="0.85" stroke-width="1"/><rect x="2.2" y="2.2" width="16" height="7.6" rx="1.3" fill="white" fill-opacity="0.85"/><path d="M22.5 4.2v3.6c.7-.35 1.15-1.08 1.15-1.8s-.45-1.45-1.15-1.8Z" fill="white" fill-opacity="0.85"/></svg>
   </div>
 </div>
 
@@ -1203,6 +1346,7 @@ body.trash-shake{animation:screenShake 380ms ease-in-out;}
     </div>
     <div class="notes-main">
       <div class="notes-main-header">
+        <button class="notes-back-btn" onclick="backToNotesList()">‹ Notes</button>
         <div class="notes-main-date" id="noteDate">Today</div>
       </div>
       <!-- Nota 1: edita el texto entre las etiquetas <div class="note-content">...</div> -->
@@ -1298,6 +1442,7 @@ function openWin(id){
   bringFront(id);
   document.getElementById('menuAppName').textContent = titles[id] || 'Finder';
   document.querySelectorAll('.dock-item').forEach(d=>d.classList.toggle('active', d.dataset.win===id));
+  if(id==='notes') backToNotesList();
 }
 
 function openPhoto(src, filename){
@@ -1443,6 +1588,12 @@ function selectNote(n){
   document.querySelectorAll('.note-list-item').forEach(item=>{
     item.classList.toggle('active', item.dataset.note == n);
   });
+  /* on mobile, tapping a note pushes into the full-screen detail view */
+  document.querySelector('.notes-body').classList.add('note-detail-open');
+}
+
+function backToNotesList(){
+  document.querySelector('.notes-body').classList.remove('note-detail-open');
 }
 
 function updateNoteDate(){
